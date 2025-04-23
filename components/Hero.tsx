@@ -8,14 +8,14 @@ const Hero = () => {
 	return (
 		<section className="relative min-h-screen flex flex-col justify-between bg-[#e3e3e3] px-10 overflow-hidden">
 			{/* Background Video */}
-			<HeroBackgroundVideo src="/video/hero.mp4" />
+			<HeroBackgroundVideo src="./video/hero.mp4" />
 
 			{/* Text Content */}
 			<div className="absolute bottom-[20%] left-16 z-10 max-w-6xl flex flex-col gap-6">
 				<BlurText
-					className="text-9xl antialiased font-semibold text-[#fffaeb]"
+					className="text-9xl antialiased font-extralight text-[#fffaeb]"
 					text="Your Space, Designed!"
-					delay={450}
+					delay={350}
 					animateBy="words"
 					direction="top"
 					onAnimationComplete={() => console.log("Animation Complete")}
