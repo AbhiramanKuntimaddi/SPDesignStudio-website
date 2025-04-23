@@ -4,11 +4,13 @@ import LearnMoreSection from "./LearnMoreSection";
 import HeroBackgroundVideo from "./HeroBackgroundVideo";
 import BlurText from "./animations/BlurText";
 
+const heroVideoSrc = "https://videos.pexels.com/video-files/6580589/6580589-uhd_4096_2160_25fps.mp4";
+
 const Hero = () => {
 	return (
 		<section className="relative min-h-screen flex flex-col justify-between bg-[#e3e3e3] px-10 overflow-hidden">
 			{/* Background Video */}
-			<HeroBackgroundVideo src="./video/hero.mp4" />
+			<HeroBackgroundVideo src={heroVideoSrc} />
 
 			{/* Text Content */}
 			<div className="absolute bottom-[20%] left-16 z-10 max-w-6xl flex flex-col gap-6">
