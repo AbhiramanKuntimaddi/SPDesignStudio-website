@@ -4,8 +4,7 @@ import LearnMoreSection from "./LearnMoreSection";
 import HeroBackgroundVideo from "./HeroBackgroundVideo";
 import BlurText from "./animations/BlurText";
 
-const heroVideoSrc =
-	"https://videos.pexels.com/video-files/8835703/8835703-hd_1920_1080_25fps.mp4";
+const heroVideoSrc = "https://videos.pexels.com/video-files/8835703/8835703-hd_1920_1080_25fps.mp4";
 
 const Hero = () => {
 	return (
@@ -14,22 +13,10 @@ const Hero = () => {
 			<HeroBackgroundVideo src={heroVideoSrc} />
 
 			{/* Text Content */}
-			<div
-				className="
-    absolute z-10
-    p-10 sm:p-10
-    w-full
-    flex flex-col gap-10 sm:gap-6
-    items-start
-    bottom-[15%] sm:bottom-[20%] left-6 sm:left-16
-  ">
+			<div className="absolute z-10 p-10 sm:p-10 w-full flex flex-col gap-10 sm:gap-6 items-start bottom-[15%] sm:bottom-[20%] left-6 sm:left-16">
 				{/* Unified Hero Text */}
 				<BlurText
-					className="
-      text-7xl sm:text-6xl md:text-7xl lg:text-9xl
-      antialiased font-semibold text-[#fffaeb]
-      text-shadow-lg/30 break-words max-w-[90%] sm:max-w-4xl
-    "
+					className="text-7xl sm:text-6xl md:text-7xl lg:text-9xl antialiased font-semibold text-[#fffaeb] text-shadow-lg/30 break-words max-w-[90%] sm:max-w-4xl"
 					text="Your Space, Designed!"
 					delay={350}
 					animateBy="words"
