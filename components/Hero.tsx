@@ -15,7 +15,7 @@ const Hero = () => {
 				<BlurText
 					className="text-9xl antialiased font-semibold text-[#fffaeb]"
 					text="Your Space, Designed!"
-					delay={170}
+					delay={450}
 					animateBy="words"
 					direction="top"
 					onAnimationComplete={() => console.log("Animation Complete")}
