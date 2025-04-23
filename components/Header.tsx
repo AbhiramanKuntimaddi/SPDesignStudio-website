@@ -9,7 +9,7 @@ const Header = () => {
 	return (
 		<>
 			{/* Header */}
-			<header className="fixed top-8 w-full flex justify-between items-center p-28 bg-transparent z-50">
+			<header className="fixed top-1 sm:top-3 w-full flex justify-between items-center p-6 sm:p-28 bg-transparent z-50">
 				<h1
 					className={`text-3xl font-light text-shadow-lg/30 ${
 						isMenuOpen ? "text-black md:text-[#fffaeb]" : "text-[#fffaeb]"
