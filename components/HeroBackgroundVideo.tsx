@@ -16,7 +16,7 @@ const HeroBackgroundVideo = ({ src }: { src: string }) => {
       </video>
 
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black opacity-60"></div>
+      <div className="absolute inset-0 bg-zinc-800 bg-opacity-80"></div>
     </div>
   );
 };

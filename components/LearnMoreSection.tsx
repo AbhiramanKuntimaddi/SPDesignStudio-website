@@ -8,7 +8,7 @@ const LearnMoreSection = ({ className }: LearnMoreSectionProps) => {
 	return (
 		<div
 			className={`absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center ${className}`}>
-			<p className="text-[#fffaeb] text-lg font-medium cursor-pointer">
+			<p className="text-[#fffaeb] text-2xl font-light cursor-pointer">
 				Learn More
 			</p>
 			{/* Downward Arrow */}

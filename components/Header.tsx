@@ -9,9 +9,9 @@ const Header = () => {
 	return (
 		<>
 			{/* Header */}
-			<header className="fixed top-8 w-full flex justify-between items-center p-10 bg-transparent z-50">
+			<header className="fixed top-8 w-full flex justify-between items-center p-28 bg-transparent z-50">
 				<h1
-					className={`text-3xl font-light ${
+					className={`text-3xl font-light text-shadow-lg/30 ${
 						isMenuOpen ? "text-black md:text-[#fffaeb]" : "text-[#fffaeb]"
 					}`}>
 					SP Design Studio
@@ -29,7 +29,7 @@ const Header = () => {
 			<AnimatePresence>
 				{isMenuOpen && (
 					<div
-						className="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-start justify-end"
+						className="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-start justify-end text-shadow-lg/30"
 						onClick={() => setIsMenuOpen(false)}>
 						<motion.nav
 							className="bg-[#fffaeb] shadow-lg p-6 w-full md:w-1/3 h-full"
