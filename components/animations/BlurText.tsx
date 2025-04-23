@@ -85,7 +85,7 @@ const BlurText: React.FC<BlurTextProps> = ({
 		return () => observer.disconnect();
 	}, [threshold, rootMargin]);
 
-	const [springs, api] = useSprings(elements.length, (i) => ({
+	const [springs, api] = useSprings(elements.length, () => ({
 		from: animationFrom || defaultFrom,
 	}));
 
