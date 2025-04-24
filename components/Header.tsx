@@ -22,12 +22,6 @@ const Header = ({ showHeader }: HeaderProps) => {
 						exit={{ y: -100, opacity: 0 }}
 						transition={{ duration: 0.5, ease: "easeOut" }}
 						className="fixed top-1 sm:top-3 w-full flex justify-between items-center p-10 sm:p-20 bg-transparent z-50">
-						{/* <h1
-							className={`text-3xl font-light text-shadow-lg/30 ${
-								isMenuOpen ? "text-black md:text-[#fffaeb]" : "text-[#fffaeb]"
-							}`}>
-							SP Design Studio
-						</h1> */}
 						{/* Logo Image */}
 						<Image
 							src="./images/logo.svg"

@@ -1,12 +1,19 @@
 "use client";
 
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+
 import LearnMoreSection from "./LearnMoreSection";
 import HeroBackgroundVideo from "./HeroBackgroundVideo";
 import BlurText from "./animations/BlurText";
+import { FadeSlideReveal } from "./animations/FadeSlideReveal";
 
-const heroVideoSrc = "https://videos.pexels.com/video-files/8835703/8835703-hd_1920_1080_25fps.mp4";
+const heroVideoSrc =
+	"https://videos.pexels.com/video-files/8835703/8835703-hd_1920_1080_25fps.mp4";
 
 const Hero = () => {
+	const [blurDone, setBlurDone] = useState(false);
+
 	return (
 		<section className="relative min-h-screen flex flex-col justify-between bg-[#e3e3e3] overflow-hidden">
 			{/* Background Video */}
@@ -21,14 +28,27 @@ const Hero = () => {
 					delay={350}
 					animateBy="words"
 					direction="top"
+					onAnimationComplete={() => {
+						setBlurDone(true);
+					}}
 				/>
 
 				{/* Supporting Text */}
-				<div className="text-2xl sm:text-xl md:text-2xl lg:text-3xl text-[#fffaeb] leading-relaxed max-w-[90%] sm:max-w-3xl text-shadow-lg break-words">
-					Transform your space into a beautiful reflection of your unique style
-					and comfort. Our design studio specializes in creating personalized
-					interiors that inspire and elevate your everyday life.
-				</div>
+				<AnimatePresence>
+					{blurDone && (
+						<motion.div
+							initial={{ opacity: 0, y: 30 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 0, y: 30 }}
+							transition={{ duration: 0.9, ease: "easeOut", delay: 1.4 }}
+							className="text-2xl sm:text-xl md:text-2xl lg:text-3xl text-[#fffaeb] leading-relaxed max-w-[90%] sm:max-w-3xl text-shadow-lg break-words">
+							<FadeSlideReveal
+								text="Transform your space into a beautiful reflection of your unique style and comfort. Our design studio specializes in creating personalized interiors that inspire and elevate your everyday life."
+								animate={blurDone}
+							/>
+						</motion.div>
+					)}
+				</AnimatePresence>
 			</div>
 
 			{/* Learn More Component */}

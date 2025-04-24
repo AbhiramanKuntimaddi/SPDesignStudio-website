@@ -5,6 +5,7 @@ import { useInView } from "framer-motion";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import IntroductionSection from "@/components/IntroductionSection";
+import ContactUs from "@/components/ContactUs";
 
 export default function Home() {
 	const heroRef = useRef(null);
@@ -18,6 +19,7 @@ export default function Home() {
 				<Hero />
 			</div>
 			<IntroductionSection />
+			<ContactUs/>
 		</div>
 	);
 }
