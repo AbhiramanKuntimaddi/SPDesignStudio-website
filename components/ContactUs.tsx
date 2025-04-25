@@ -47,7 +47,7 @@ export default function ContactUs() {
 						initial={{ opacity: 0, y: 30 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.6, ease: "easeOut" }}>
-						<h3 className="text-xl sm:text-4xl mb-3">Phone</h3>
+						<h3 className="text-3xl sm:text-4xl mb-3">Phone</h3>
 						<div className="flex items-center text-xl sm:text-xl font-light">
 							<FiPhone className="mr-3" size={20} />
 							<a href="tel:+91-9100111450" className="hover:underline">
@@ -61,7 +61,7 @@ export default function ContactUs() {
 						initial={{ opacity: 0, y: 30 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.7, ease: "easeOut" }}>
-						<h3 className="text-xl sm:text-4xl mb-3">Email</h3>
+						<h3 className="text-3xl sm:text-4xl mb-3">Email</h3>
 						<div className="flex items-center text-xl sm:text-xl font-light">
 							<FiMail className="mr-3" size={20} />
 							<a
@@ -79,7 +79,7 @@ export default function ContactUs() {
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8, ease: "easeOut" }}
 					className="mt-6">
-					<h2 className="text-xl sm:text-4xl mb-3">Connect with Us</h2>
+					<div className="text-3xl sm:text-4xl mb-3">Connect with Us</div>
 					<p className="text-xl sm:text-xl mb-4">
 						Stay connected for fresh perspectives and thoughtful design.
 					</p>
