@@ -7,37 +7,41 @@ import Hero from "@/components/Hero";
 import IntroductionSection from "@/components/IntroductionSection";
 import ContactUs from "@/components/ContactUs";
 
-// Custom hook to check a media query.
+// Custom hook to check a media query
 function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(false);
-  useEffect(() => {
-    const media = window.matchMedia(query);
-    if (media.matches !== matches) {
-      setMatches(media.matches);
-    }
-    const listener = () => setMatches(media.matches);
-    media.addEventListener("change", listener);
-    return () => media.removeEventListener("change", listener);
-  }, [matches, query]);
-  return matches;
+	const [matches, setMatches] = useState(false);
+
+	useEffect(() => {
+		const media = window.matchMedia(query);
+		const listener = () => setMatches(media.matches);
+
+		// Set initial match
+		setMatches(media.matches);
+
+		media.addEventListener("change", listener);
+		return () => media.removeEventListener("change", listener);
+	}, [query]);
+
+	return matches;
 }
 
 export default function Home() {
-  const heroRef = useRef(null);
-  // Adjust based on a mobile breakpoint (e.g. 640px)
-  const isMobile = useMediaQuery("(max-width: 640px)");
-  // When on mobile, hide the header earlier by increasing the negative top offset.
-  const observerMargin = isMobile ? "-80% 0px -30% 0px" : "-50% 0px -30% 0px";
-  const isHeroInView = useInView(heroRef, { margin: observerMargin });
+	const heroRef = useRef(null);
+	// Detect mobile screen
+	const isMobile = useMediaQuery("(max-width: 640px)");
+	// Safer observer margin to reduce false triggers
+	const observerMargin = isMobile ? "-60% 0px -20% 0px" : "-40% 0px -20% 0px";
+	// Watch when Hero is in view
+	const isHeroInView = useInView(heroRef, { margin: observerMargin });
 
-  return (
-    <div>
-      <Header showHeader={isHeroInView} />
-      <div ref={heroRef}>
-        <Hero />
-      </div>
-      <IntroductionSection />
-      <ContactUs />
-    </div>
-  );
+	return (
+		<div>
+			<Header showHeader={isHeroInView} />
+			<div ref={heroRef} style={{ minHeight: "100vh" }}>
+				<Hero />
+			</div>
+			<IntroductionSection />
+			<ContactUs />
+		</div>
+	);
 }
