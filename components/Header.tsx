@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface HeaderProps {
@@ -12,28 +12,38 @@ const Header = ({ showHeader }: HeaderProps) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const navItems = ["Home", "About", "Services", "Portfolio", "Contact"];
 
+	// Optional scroll nudge to fix layout glitches on iOS
+	useEffect(() => {
+		window.scrollTo(window.scrollX, window.scrollY + 1);
+		setTimeout(() => window.scrollTo(window.scrollX, window.scrollY - 1), 0);
+	}, []);
+
 	return (
 		<>
 			<AnimatePresence>
 				{showHeader && (
 					<motion.header
-						style={{ paddingTop: "env(safe-area-inset-top)" }}
-						initial={{ y: -100, opacity: 0 }}
+						style={{
+							paddingTop: "env(safe-area-inset-top)",
+							willChange: "transform",
+							WebkitTransform: "translateZ(0)",
+							backgroundColor: "transparent",
+						}}
+						initial={{ y: -20, opacity: 0 }}
 						animate={{ y: 0, opacity: 1 }}
-						exit={{ y: -100, opacity: 0 }}
+						exit={{ y: -20, opacity: 0 }}
 						transition={{ duration: 0.5, ease: "easeOut" }}
-						className="fixed top-1 sm:top-3 w-full flex justify-between items-center p-4 sm:p-10 bg-transparent z-50">
+						className="fixed top-0 w-full flex justify-between items-center p-4 sm:p-10 z-50">
 						<Image
 							src="/images/logo.svg"
 							alt="SP Design Studio Logo"
-							width={180} // slightly smaller for mobile by default
+							width={180}
 							height={35}
 							className={`object-contain ${
 								isMenuOpen ? "brightness-0 md:brightness-100" : "brightness-100"
 							}`}
 						/>
 
-						{/* Rotated Menu Button */}
 						<button
 							className={`uppercase tracking-widest rotate-90 text-xs sm:text-lg ${
 								isMenuOpen ? "text-black" : "text-[#fffaeb]"
@@ -46,7 +56,6 @@ const Header = ({ showHeader }: HeaderProps) => {
 				)}
 			</AnimatePresence>
 
-			{/* Mobile Menu Overlay */}
 			<AnimatePresence>
 				{isMenuOpen && (
 					<div
