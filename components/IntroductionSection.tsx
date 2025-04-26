@@ -49,8 +49,6 @@ Whether you're envisioning a serene home retreat or a refined commercial space, 
 					{/* CTA */}
 					<motion.a
 						href="#About"
-						whileHover={{ y: -3 }}
-						transition={{ type: "tween", duration: 0.3 }}
 						className="mt-4 inline-flex items-center text-sm sm:text-base md:text-xl font-medium text-[#fffaeb] border-b border-transparent hover:border-[#fffaeb]">
 						Know More About Us
 						<svg

@@ -8,6 +8,7 @@ import IntroductionSection from "@/components/IntroductionSection";
 import ContactUs from "@/components/ContactUs";
 import TestimonySection from "@/components/TestimonySection";
 import Footer from "@/components/Footer";
+import Services from "@/components/Services";
 
 // Custom hook to check a media query
 function useMediaQuery(query: string) {
@@ -45,6 +46,7 @@ export default function Home() {
 					<Hero />
 				</div>
 				<IntroductionSection />
+				<Services />
 				<TestimonySection />
 				<ContactUs />
 				<Footer />
