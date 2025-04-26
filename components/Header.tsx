@@ -1,7 +1,7 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface HeaderProps {
@@ -10,6 +10,8 @@ interface HeaderProps {
 
 const Header = ({ showHeader }: HeaderProps) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+	// Navigation items array for easy menu updates
 	const navItems = ["Home", "About", "Services", "Portfolio", "Contact"];
 
 	// Optional scroll nudge to fix layout glitches on iOS
@@ -29,23 +31,24 @@ const Header = ({ showHeader }: HeaderProps) => {
 							WebkitTransform: "translateZ(0)",
 							backgroundColor: "transparent",
 						}}
-						initial={{ y: -20, opacity: 0 }}
+						initial={{ y: -100, opacity: 0 }}
 						animate={{ y: 0, opacity: 1 }}
-						exit={{ y: -20, opacity: 0 }}
+						exit={{ y: -100, opacity: 0 }}
 						transition={{ duration: 0.5, ease: "easeOut" }}
-						className="fixed top-0 w-full flex justify-between items-center p-4 sm:p-10 z-50">
+						// Header now positioned 2% from the top
+						className="fixed top-[3%] w-full flex justify-between items-center p-10 sm:p-20 bg-transparent z-50">
 						<Image
 							src="/images/logo.svg"
 							alt="SP Design Studio Logo"
-							width={180}
-							height={35}
+							width={215}
+							height={40}
 							className={`object-contain ${
 								isMenuOpen ? "brightness-0 md:brightness-100" : "brightness-100"
 							}`}
 						/>
-
+						{/* Mobile Menu Overlay */}
 						<button
-							className={`uppercase tracking-widest rotate-90 text-xs sm:text-lg ${
+							className={`text-lg uppercase tracking-widest rotate-90 ${
 								isMenuOpen ? "text-black" : "text-[#fffaeb]"
 							}`}
 							onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -68,7 +71,7 @@ const Header = ({ showHeader }: HeaderProps) => {
 							exit={{ x: "100%" }}
 							transition={{ duration: 0.4, ease: "easeInOut" }}
 							onClick={(e) => e.stopPropagation()}>
-							<div className="flex flex-col gap-6 text-black mt-[35%] p-10">
+							<div className="flex flex-col text-5xl text-left font-light gap-6 text-black mt-[35%] p-10">
 								{navItems.map((item) => (
 									<button
 										key={item}

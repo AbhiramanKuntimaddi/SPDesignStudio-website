@@ -21,7 +21,7 @@ const Hero = () => {
 			<HeroBackgroundVideo src={heroVideoSrc} />
 
 			{/* Full-size overlay container using flex to push text to the bottom */}
-			<div className="absolute inset-0 z-10 p-10 sm:p-10 flex flex-col justify-end">
+			<div className="absolute inset-0 z-10 p-14 sm:p-20 flex flex-col justify-end">
 				{/* Inner wrapper with a bottom margin for breathing room */}
 				<div className="mb-10 sm:mb-[15%]">
 					{/* Main Hero Text */}
@@ -48,7 +48,7 @@ const Hero = () => {
 								}}
 								className="text-base sm:text-xl md:text-2xl lg:text-3xl text-[#fffaeb] leading-relaxed max-w-[90%] sm:max-w-3xl text-shadow-lg mt-8 sm:mt-10">
 								<FadeSlideReveal
-									text="Transform your space into a beautiful reflection of your unique style and comfort. Our design studio specializes in creating personalized interiors that inspire and elevate your everyday life."
+									text="Every space tells a story, we help you shape yours with purpose, elegance, and authenticity."
 									animate={blurDone}
 								/>
 							</motion.div>

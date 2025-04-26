@@ -37,11 +37,14 @@ export default function Home() {
 	return (
 		<div>
 			<Header showHeader={isHeroInView} />
-			<div ref={heroRef} style={{ minHeight: "100vh" }}>
-				<Hero />
+			{/* Wrapper with smooth scroll enabled */}
+			<div className="scroll-smooth">
+				<div ref={heroRef} style={{ minHeight: "100vh" }}>
+					<Hero />
+				</div>
+				<IntroductionSection />
+				<ContactUs />
 			</div>
-			<IntroductionSection />
-			<ContactUs />
 		</div>
 	);
 }
