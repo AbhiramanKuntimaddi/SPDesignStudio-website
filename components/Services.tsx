@@ -26,7 +26,8 @@ const services = [
 	},
 	{
 		title: "Renovation Works",
-		description: "Transforming spaces with expert craftsmanship and modern touches.",
+		description:
+			"Transforming spaces with expert craftsmanship and modern touches.",
 		projects: 75,
 		backgroundImage: "/images/grid-bottom-right.jpg",
 	},
@@ -34,22 +35,26 @@ const services = [
 
 const Service: React.FC = () => {
 	return (
-		<section className="min-h-screen bg-[#c0afa7] p-6 flex flex-col justify-center items-center">
+		<section className="min-h-screen bg-[#c0afa7] p-10 flex flex-col justify-center items-center">
 			{/* Left-Aligned Section Title */}
-			<div className="w-full max-w-7xl mb-8">
-				<h2 className="text-4xl font-bold text-[#5b3644] text-left">Our Services</h2>
+			<div className="w-full max-w-7xl md:max-w-8xl lg:max-w-[90%] mb-8">
+				<h2 className="text-4xl font-bold text-[#5b3644] text-left">
+					Tailored Expertise
+				</h2>
+                <p className="mt-4 text-lg text-[#5b3644] font-light">
+					Where bespoke solutions meet inspired design. We turn visions into timeless creations. NOTE : This will be changed to something more meaningful in the future.
+				</p>
 			</div>
 
 			{/* Grid Layout */}
-			<div className="grid grid-cols-12 grid-rows-2 gap-6 w-full max-w-7xl h-[90vh]">
+			<div className="grid grid-cols-12 md:grid-cols-12 lg:grid-cols-12 gap-6 w-full max-w-7xl md:max-w-8xl lg:max-w-[90%] md:h-[75vh] lg:h-[90vh]">
 				{/* Top-Left Cell */}
 				<motion.div
 					initial={{ opacity: 0, y: 20 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8 }}
 					viewport={{ once: true }}
-					className="col-span-7 row-span-1 relative rounded-md overflow-hidden flex flex-col justify-center"
-				>
+					className="col-span-12 md:col-span-7 row-span-1 relative rounded-md overflow-hidden flex flex-col justify-center">
 					{/* Background Image */}
 					<Image
 						src={services[0].backgroundImage}
@@ -76,9 +81,8 @@ const Service: React.FC = () => {
 						whileInView={{ opacity: 1 }}
 						transition={{ duration: 0.8 }}
 						viewport={{ once: true }}
-						className="bg-[#fffaeb] h-full w-full rounded-md relative flex items-center justify-center"
-					>
-						<span className="absolute transform -rotate-90 text-[#5b3644] font-semibold text-sm">
+						className="bg-[#fffaeb] h-full w-full rounded-md relative flex items-center justify-center">
+						<span className="absolute transform -rotate-90 text-[#5b3644] font-semibold text-3xl">
 							Elegance
 						</span>
 					</motion.div>
@@ -87,9 +91,8 @@ const Service: React.FC = () => {
 						whileInView={{ opacity: 1 }}
 						transition={{ duration: 0.8, delay: 0.2 }}
 						viewport={{ once: true }}
-						className="bg-[#5b3644] h-full w-full rounded-md relative flex items-center justify-center"
-					>
-						<span className="absolute transform -rotate-90 text-[#fffaeb] font-semibold text-sm">
+						className="bg-[#5b3644] h-full w-full rounded-md relative flex items-center justify-center">
+						<span className="absolute transform -rotate-90 text-[#fffaeb] font-semibold text-3xl">
 							Sophistication
 						</span>
 					</motion.div>
@@ -101,8 +104,7 @@ const Service: React.FC = () => {
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8 }}
 					viewport={{ once: true }}
-					className="col-span-4 row-span-1 relative rounded-md overflow-hidden flex flex-col justify-center"
-				>
+					className="col-span-12 md:col-span-4 row-span-1 relative rounded-md overflow-hidden flex flex-col justify-center">
 					<Image
 						src={services[1].backgroundImage}
 						alt={services[1].title}
@@ -125,8 +127,7 @@ const Service: React.FC = () => {
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8 }}
 					viewport={{ once: true }}
-					className="col-span-5 row-span-1 relative rounded-md overflow-hidden flex flex-col justify-center"
-				>
+					className="col-span-12 md:col-span-5 row-span-1 relative rounded-md overflow-hidden flex flex-col justify-center">
 					<Image
 						src={services[2].backgroundImage}
 						alt={services[2].title}
@@ -149,8 +150,7 @@ const Service: React.FC = () => {
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8 }}
 					viewport={{ once: true }}
-					className="col-span-7 row-span-1 relative rounded-md overflow-hidden flex flex-col justify-center"
-				>
+					className="col-span-12 md:col-span-7 row-span-1 relative rounded-md overflow-hidden flex flex-col justify-center">
 					<Image
 						src={services[3].backgroundImage}
 						alt={services[3].title}
