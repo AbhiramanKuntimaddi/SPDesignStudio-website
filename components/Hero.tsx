@@ -15,7 +15,6 @@ const Hero = () => {
 	const [blurDone, setBlurDone] = useState(false);
 
 	return (
-		// Add top padding to ensure non-fixed content isn't hidden behind the header.
 		<section className="relative min-h-screen bg-[#e3e3e3] overflow-hidden pt-[100px]">
 			{/* Background Video */}
 			<HeroBackgroundVideo src={heroVideoSrc} />
@@ -26,7 +25,7 @@ const Hero = () => {
 				<div className="mb-10 sm:mb-[15%]">
 					{/* Main Hero Text */}
 					<BlurText
-						className="text-5xl sm:text-6xl md:text-7xl lg:text-9xl antialiased font-semibold text-[#fffaeb] text-shadow-lg/30 break-words max-w-[90%] sm:max-w-4xl"
+						className="text-[clamp(2rem,5vw,7vh)] antialiased font-semibold text-[#fffaeb] text-shadow-lg/30 break-words max-w-[90%] sm:max-w-4xl"
 						text="Your Space, Designed!"
 						delay={350}
 						animateBy="words"

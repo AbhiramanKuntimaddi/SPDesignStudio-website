@@ -8,6 +8,11 @@ interface HeaderProps {
 	showHeader: boolean;
 }
 
+const navVariants = {
+	hidden: { opacity: 0, y: 20 },
+	visible: { opacity: 1, y: 0 },
+};
+
 const Header = ({ showHeader }: HeaderProps) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -35,7 +40,7 @@ const Header = ({ showHeader }: HeaderProps) => {
 						animate={{ y: 0, opacity: 1 }}
 						exit={{ y: -100, opacity: 0 }}
 						transition={{ duration: 0.5, ease: "easeOut" }}
-						// Header now positioned 2% from the top
+						// Header now positioned 3% from the top
 						className="fixed top-[3%] w-full flex justify-between items-center p-10 sm:p-20 bg-transparent z-50">
 						<Image
 							src="/images/logo.svg"
@@ -71,15 +76,28 @@ const Header = ({ showHeader }: HeaderProps) => {
 							exit={{ x: "100%" }}
 							transition={{ duration: 0.4, ease: "easeInOut" }}
 							onClick={(e) => e.stopPropagation()}>
-							<div className="flex flex-col text-5xl text-left font-light gap-6 text-black mt-[35%] p-10">
+							<motion.div
+								className="flex flex-col text-5xl text-left font-light gap-6 text-black mt-[35%] p-10"
+								initial="hidden"
+								animate="visible"
+								exit="hidden"
+								variants={{
+									visible: {
+										transition: {
+											staggerChildren: 0.2,
+										},
+									},
+								}}>
 								{navItems.map((item) => (
-									<button
+									<motion.button
 										key={item}
+										variants={navVariants}
+										transition={{ duration: 0.4, ease: "easeOut" }}
 										className="text-left hover:text-gray-500 transition-colors text-5xl font-extralight">
 										{item}
-									</button>
+									</motion.button>
 								))}
-							</div>
+							</motion.div>
 						</motion.nav>
 					</div>
 				)}

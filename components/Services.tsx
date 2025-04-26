@@ -50,14 +50,14 @@ const Service: React.FC = () => {
 					</motion.div>
 
 					{/* Swatch Column */}
-					<div className="col-span-12 md:col-span-1 hidden md:flex flex-col gap-2 justify-center items-center">
+					<div className="col-span-12 md:col-span-1 hidden md:flex flex-col gap-4 justify-center items-center">
 						<motion.div
 							initial={{ opacity: 0 }}
 							whileInView={{ opacity: 1 }}
 							transition={{ duration: 0.8 }}
 							viewport={{ once: true }}
 							className="bg-[#fffaeb] h-full w-full rounded-md shadow-lg shadow-[#5b3644]/20 relative flex items-center justify-center">
-							<span className="absolute transform -rotate-90 text-[#5b3644] font-semibold text-3xl">
+							<span className="absolute transform -rotate-90 text-[#5b3644] font-semibold text-base md:text-lg lg:text-xl">
 								Elegance
 							</span>
 						</motion.div>
@@ -67,7 +67,7 @@ const Service: React.FC = () => {
 							transition={{ duration: 0.8, delay: 0.2 }}
 							viewport={{ once: true }}
 							className="bg-[#5b3644] h-full w-full rounded-md shadow-lg shadow-[#000]/20 relative flex items-center justify-center">
-							<span className="absolute transform -rotate-90 text-[#fffaeb] font-semibold text-3xl">
+							<span className="absolute transform -rotate-90 text-[#fffaeb] font-semibold text-base md:text-lg lg:text-xl">
 								Sophistication
 							</span>
 						</motion.div>
