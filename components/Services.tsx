@@ -39,10 +39,11 @@ const Service: React.FC = () => {
 			{/* Left-Aligned Section Title */}
 			<div className="w-full max-w-7xl md:max-w-8xl lg:max-w-[90%] mb-8">
 				<h2 className="text-4xl font-bold text-[#5b3644] text-left">
-					Tailored Expertise
+					Comprehensive Design Services
 				</h2>
-                <p className="mt-4 text-lg text-[#5b3644] font-light">
-					Where bespoke solutions meet inspired design. We turn visions into timeless creations. NOTE : This will be changed to something more meaningful in the future.
+				<p className="mt-4 text-lg text-[#5b3644] font-light">
+					Discover a range of tailored solutions, from renovations to
+					full-scale transformations. Crafted with precision and flair.
 				</p>
 			</div>
 
