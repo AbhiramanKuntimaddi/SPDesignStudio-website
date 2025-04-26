@@ -6,6 +6,8 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import IntroductionSection from "@/components/IntroductionSection";
 import ContactUs from "@/components/ContactUs";
+import TestimonySection from "@/components/TestimonySection";
+import Footer from "@/components/Footer";
 
 // Custom hook to check a media query
 function useMediaQuery(query: string) {
@@ -43,7 +45,9 @@ export default function Home() {
 					<Hero />
 				</div>
 				<IntroductionSection />
+				<TestimonySection />
 				<ContactUs />
+				<Footer />
 			</div>
 		</div>
 	);

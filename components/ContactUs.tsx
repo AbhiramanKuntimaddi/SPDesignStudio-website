@@ -6,26 +6,26 @@ import { motion } from "framer-motion";
 
 export default function ContactUs() {
 	return (
-		<main className="min-h-screen/3 flex flex-col md:flex-row">
+		<main className="min-h-screen/ flex flex-col md:flex-row">
 			{/* Left column - Contact Message */}
-			<section className="md:w-1/2 flex items-center justify-start bg-[#5b3644] p-6 sm:p-10 md:p-24">
+			<section className="md:w-1/2 flex items-center justify-center bg-[#5b3644] p-12 sm:p-20 md:p-28">
 				<motion.div
 					initial={{ opacity: 0, x: -50 }}
 					animate={{ opacity: 1, x: 0 }}
 					transition={{ duration: 0.8, ease: "easeOut" }}
-					className="text-[#fffaeb] max-w-md text-left">
-					<h1 className="text-2xl sm:text-3xl md:text-5xl font-semibold mb-4 leading-snug">
+					className="text-[#fffaeb] max-w-md space-y-6">
+					<h1 className="text-2xl sm:text-3xl md:text-5xl font-semibold leading-tight">
 						Let&apos;s Create Something Extraordinary?
 					</h1>
-					<p className="text-xl sm:text-3xl font-light mt-3">
+					<p className="text-xl sm:text-3xl font-light">
 						We&apos;re excited to collaborate with you and bring spaces to life.
 					</p>
 				</motion.div>
 			</section>
 
 			{/* Right column - Contact Details */}
-			<section className="md:w-1/2 bg-[#fffaeb] text-[#5b3644] flex flex-col justify-start p-6 sm:p-10 md:p-24 gap-10 text-left">
-				<div className="space-y-6">
+			<section className="md:w-1/2 bg-[#fffaeb] text-[#5b3644] flex flex-col justify-start p-12 sm:p-20 md:p-28 gap-12 text-left">
+				<div className="space-y-10">
 					{/* Address */}
 					<motion.div
 						initial={{ opacity: 0, y: 30 }}
@@ -78,9 +78,9 @@ export default function ContactUs() {
 					initial={{ opacity: 0, y: 30 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8, ease: "easeOut" }}
-					className="mt-6">
+					className="mt-8">
 					<div className="text-3xl sm:text-4xl mb-3">Connect with Us</div>
-					<p className="text-xl sm:text-xl mb-4">
+					<p className="text-xl sm:text-xl mb-6">
 						Stay connected for fresh perspectives and thoughtful design.
 					</p>
 					<div className="flex space-x-6">
