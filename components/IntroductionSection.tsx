@@ -36,11 +36,11 @@ const IntroductionSection = () => {
 					{/* Animated Paragraph Text */}
 					<ScrollReveal
 						containerClassName="w-full"
-						textClassName="text-sm sm:text-base md:text-xl lg:text-2xl font-light text-[#fffaeb] leading-relaxed text-left"
+						textClassName="text-sm sm:text-base md:text-xl lg:text-2xl font-light text-[#fffaeb] text-left"
 						enableBlur={true}
 						baseOpacity={0}
 						baseRotation={5}
-						blurStrength={5}>
+						blurStrength={10}>
 						{`At SP Design Studio, we believe interior design is more than aesthetics, it's about crafting meaningful spaces that elevate the way you live, work, and feel.
 Our team of dedicated, experienced designers combines creative insight with technical precision to transform everyday environments into timeless, functional works of art.
 Whether you're envisioning a serene home retreat or a refined commercial space, we collaborate closely to ensure every detail mirrors your identity, values, and lifestyle.`}
