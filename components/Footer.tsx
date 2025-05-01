@@ -12,7 +12,7 @@ const Footer = () => {
 					target="_blank"
 					rel="noopener noreferrer"
 					className="underline hover:text-[#72505d]">
-					the dev
+					AK
 				</a>
 				.
 			</p>

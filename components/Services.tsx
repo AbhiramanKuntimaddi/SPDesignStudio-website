@@ -1,12 +1,26 @@
 "use client";
 
-import React from "react";
 import { motion } from "framer-motion";
 import CountUp from "react-countup";
 import Image from "next/image";
 import { services } from "@/lib/services";
 
-const Service: React.FC = () => {
+// Animation variant
+const fadeInUpVariant = {
+	hidden: { opacity: 0, y: 20 },
+	visible: (i: number) => ({
+		opacity: 1,
+		y: 0,
+		transition: {
+			delay: i * 0.3,
+			duration: 0.8,
+			type: "spring",
+			stiffness: 200,
+		},
+	}),
+};
+
+const Service = () => {
 	return (
 		<section className="min-h-screen bg-[#c0afa7] py-20 px-4 flex flex-col items-center">
 			<div className="w-full max-w-screen-xl">
@@ -24,12 +38,13 @@ const Service: React.FC = () => {
 
 				{/* Grid */}
 				<div className="grid grid-cols-12 gap-6 md:h-[75vh] lg:h-[90vh]">
-					{/* Top-Left */}
+					{/* Card 1: Left large */}
 					<motion.div
-						initial={{ opacity: 0, y: 20 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.8, type: "spring", stiffness: 200 }}
+						variants={fadeInUpVariant}
+						initial="hidden"
+						whileInView="visible"
 						viewport={{ once: true }}
+						custom={0}
 						className="col-span-12 md:col-span-7 relative rounded-md overflow-hidden flex flex-col justify-center">
 						<Image
 							src={services[0].backgroundImage}
@@ -49,36 +64,41 @@ const Service: React.FC = () => {
 						</div>
 					</motion.div>
 
-					{/* Swatch Column */}
+					{/* Swatch Column with Animation */}
 					<div className="col-span-12 md:col-span-1 hidden md:flex flex-col gap-4 justify-center items-center">
-						<motion.div
-							initial={{ opacity: 0 }}
-							whileInView={{ opacity: 1 }}
-							transition={{ duration: 0.8 }}
-							viewport={{ once: true }}
-							className="bg-[#fffaeb] h-full w-full rounded-md shadow-lg shadow-[#5b3644]/20 relative flex items-center justify-center">
-							<span className="absolute transform -rotate-90 text-[#5b3644] font-semibold text-base md:text-lg lg:text-xl">
-								Elegance
-							</span>
-						</motion.div>
-						<motion.div
-							initial={{ opacity: 0 }}
-							whileInView={{ opacity: 1 }}
-							transition={{ duration: 0.8, delay: 0.2 }}
-							viewport={{ once: true }}
-							className="bg-[#5b3644] h-full w-full rounded-md shadow-lg shadow-[#000]/20 relative flex items-center justify-center">
-							<span className="absolute transform -rotate-90 text-[#fffaeb] font-semibold text-base md:text-lg lg:text-xl">
-								Sophistication
-							</span>
-						</motion.div>
+						{[1, 0].map((i) => {
+							const swatch = [
+								{ label: "Elegance", bg: "#fffaeb", text: "#5b3644" },
+								{ label: "Sophistication", bg: "#5b3644", text: "#fffaeb" },
+							][i];
+
+							return (
+								<motion.div
+									key={i}
+									variants={fadeInUpVariant}
+									initial="hidden"
+									whileInView="visible"
+									viewport={{ once: true }}
+									custom={i === 1 ? 1 : 2} // bottom swatch animates first
+									className="h-full w-full rounded-md relative flex items-center justify-center"
+									style={{ backgroundColor: swatch.bg }}>
+									<span
+										className="absolute transform -rotate-90 font-semibold text-base md:text-lg lg:text-xl"
+										style={{ color: swatch.text }}>
+										{swatch.label}
+									</span>
+								</motion.div>
+							);
+						})}
 					</div>
 
-					{/* Top-Right */}
+					{/* Card 2: Top-right */}
 					<motion.div
-						initial={{ opacity: 0, y: 20 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.8, type: "spring", stiffness: 200 }}
+						variants={fadeInUpVariant}
+						initial="hidden"
+						whileInView="visible"
 						viewport={{ once: true }}
+						custom={3}
 						className="col-span-12 md:col-span-4 relative rounded-md overflow-hidden flex flex-col justify-center">
 						<Image
 							src={services[1].backgroundImage}
@@ -98,12 +118,13 @@ const Service: React.FC = () => {
 						</div>
 					</motion.div>
 
-					{/* Bottom-Left */}
+					{/* Card 3: Bottom-left */}
 					<motion.div
-						initial={{ opacity: 0, y: 20 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.8, type: "spring", stiffness: 200 }}
+						variants={fadeInUpVariant}
+						initial="hidden"
+						whileInView="visible"
 						viewport={{ once: true }}
+						custom={4}
 						className="col-span-12 md:col-span-5 relative rounded-md overflow-hidden flex flex-col justify-center">
 						<Image
 							src={services[2].backgroundImage}
@@ -123,12 +144,13 @@ const Service: React.FC = () => {
 						</div>
 					</motion.div>
 
-					{/* Bottom-Right */}
+					{/* Card 4: Bottom-right */}
 					<motion.div
-						initial={{ opacity: 0, y: 20 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.8, type: "spring", stiffness: 200 }}
+						variants={fadeInUpVariant}
+						initial="hidden"
+						whileInView="visible"
 						viewport={{ once: true }}
+						custom={5}
 						className="col-span-12 md:col-span-7 relative rounded-md overflow-hidden flex flex-col justify-center">
 						<Image
 							src={services[3].backgroundImage}

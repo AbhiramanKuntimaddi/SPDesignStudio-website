@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-import LearnMoreSection from "./LearnMoreSection";
-import HeroBackgroundVideo from "./HeroBackgroundVideo";
+// import LearnMoreSection from "./LearnMoreSection";
 import BlurText from "./animations/BlurText";
+import HeroBackgroundVideo from "./HeroBackgroundVideo";
 import { FadeSlideReveal } from "./animations/FadeSlideReveal";
 
 const heroVideoSrc =
@@ -25,7 +25,7 @@ const Hero = () => {
 				<div className="mb-10 sm:mb-[15%]">
 					{/* Main Hero Text */}
 					<BlurText
-						className="text-[clamp(2rem,5vw,7vh)] antialiased font-semibold text-[#fffaeb] text-shadow-lg/30 break-words max-w-[90%] sm:max-w-4xl"
+						className="text-[clamp(2rem,8vw,7vh)] antialiased font-semibold text-[#fffaeb] text-shadow-lg/30 break-words max-w-[90%] sm:max-w-4xl"
 						text="Your Space, Designed!"
 						delay={350}
 						animateBy="words"
@@ -53,11 +53,39 @@ const Hero = () => {
 							</motion.div>
 						)}
 					</AnimatePresence>
+
+					{/* CTA Link */}
+					<AnimatePresence>
+						{blurDone && (
+							<motion.div
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								transition={{ duration: 1.2, delay: 2 }}
+								className="mt-10">
+								<motion.a
+									href="/portfolio"
+									className="mt-4 inline-flex items-center text-sm sm:text-base md:text-xl font-medium text-[#fffaeb] border-b border-transparent hover:border-[#fffaeb]">
+									<span className="mr-2">Discover Our Creations</span>{" "}
+									{/* Added margin for space */}
+									<svg
+										className="w-4 sm:w-5 md:w-6 h-4 sm:h-5 md:h-6 transform transition-transform duration-300 group-hover:translate-x-2"
+										xmlns="http://www.w3.org/2000/svg"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor">
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M9 5l7 7-7 7"
+										/>
+									</svg>
+								</motion.a>
+							</motion.div>
+						)}
+					</AnimatePresence>
 				</div>
 			</div>
-
-			{/* Learn More Component */}
-			<LearnMoreSection className="absolute bottom-6 sm:bottom-10 left-6 sm:left-1/2 transform sm:-translate-x-1/2 text-sm sm:text-base md:text-xl" />
 		</section>
 	);
 };

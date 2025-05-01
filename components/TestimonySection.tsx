@@ -58,13 +58,13 @@ const TestimonySection = () => {
 							viewport={{ once: true }}
 							className="flex flex-col items-center text-center h-full">
 							{/* Fully Round Image */}
-							<div className="w-20 h-20 rounded-full overflow-hidden">
+							<div className="w-120 h-160 overflow-hidden">
 								<Image
 									src={item.imageUrl}
 									alt={item.name}
-									width={80}
-									height={80}
-									className="rounded-full object-cover w-full h-full"
+									width={160}
+									height={160}
+									className="rounded-sm object-cover w-full h-full"
 								/>
 							</div>
 

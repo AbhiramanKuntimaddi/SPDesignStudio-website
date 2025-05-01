@@ -45,26 +45,6 @@ const IntroductionSection = () => {
 Our team of dedicated, experienced designers combines creative insight with technical precision to transform everyday environments into timeless, functional works of art.
 Whether you're envisioning a serene home retreat or a refined commercial space, we collaborate closely to ensure every detail mirrors your identity, values, and lifestyle.`}
 					</ScrollReveal>
-
-					{/* CTA */}
-					<motion.a
-						href="#About"
-						className="mt-4 inline-flex items-center text-sm sm:text-base md:text-xl font-medium text-[#fffaeb] border-b border-transparent hover:border-[#fffaeb]">
-						Know More About Us
-						<svg
-							className="ml-2 w-4 sm:w-5 md:w-6 h-4 sm:h-5 md:h-6"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor">
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth={2}
-								d="M9 5l7 7-7 7"
-							/>
-						</svg>
-					</motion.a>
 				</motion.div>
 			</div>
 		</section>
