@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import localFont from "next/font/local";
-import FounderImage from "@/public/images/spandana.jpg";
+import FounderImage from "@/public/images/team/spandana.jpg";
 
 const bdScript = localFont({
 	src: "../../public/fonts/BDSans/BDScript-Regular.woff",
