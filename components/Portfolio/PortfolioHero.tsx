@@ -122,3 +122,5 @@ export const PortfolioHero = () => {
 		</section>
 	);
 };
+
+export default PortfolioHero;

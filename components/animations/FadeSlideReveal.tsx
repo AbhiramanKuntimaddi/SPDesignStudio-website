@@ -6,7 +6,7 @@ interface FadeSlideRevealProps {
   animate?: boolean
 }
 
-export function FadeSlideReveal({ text, animate }: FadeSlideRevealProps) {
+const FadeSlideReveal = ({ text, animate }: FadeSlideRevealProps) => {
   const tokens = text.split(/(\s+)/g)
 
   return (
@@ -31,3 +31,5 @@ export function FadeSlideReveal({ text, animate }: FadeSlideRevealProps) {
     </motion.div>
   )
 }
+
+export default FadeSlideReveal;

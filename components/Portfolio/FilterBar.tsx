@@ -150,3 +150,5 @@ const Dropdown = ({
 		</div>
 	);
 };
+
+export default FilterBar;
