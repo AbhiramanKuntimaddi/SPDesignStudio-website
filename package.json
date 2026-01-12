@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@react-email/components": "^1.0.4",
     "@react-spring/web": "^10.0.3",
     "@studio-freight/lenis": "^1.0.42",
     "autoprefixer": "^10.4.20",
@@ -20,7 +21,8 @@
     "react-countup": "^6.5.3",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
-    "react-intersection-observer": "^9.16.0"
+    "react-intersection-observer": "^9.16.0",
+    "resend": "^6.7.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

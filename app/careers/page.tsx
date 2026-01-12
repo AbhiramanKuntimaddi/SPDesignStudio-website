@@ -9,7 +9,6 @@ import CareerHero from "@/components/Career/CareerHero";
 import JobListing from "@/components/Career/JobListing";
 import ApplicationModal from "@/components/Career/ApplicationModal";
 
-// Custom hook to check a media query (matching your AboutPage pattern)
 function useMediaQuery(query: string) {
 	const [matches, setMatches] = useState(false);
 
@@ -27,10 +26,11 @@ function useMediaQuery(query: string) {
 const CareersPage = () => {
 	const pathname = usePathname();
 	const heroRef = useRef(null);
-	const [showForm, setShowForm] = useState(false);
-	const isMobile = useMediaQuery("(max-width: 640px)");
 
-	// Logic for Header visibility consistent with AboutPage
+	// CHANGED: Instead of just true/false, we store the job title string
+	const [selectedJob, setSelectedJob] = useState<string | null>(null);
+
+	const isMobile = useMediaQuery("(max-width: 640px)");
 	const observerMargin = isMobile ? "-60% 0px -20% 0px" : "-40% 0px -20% 0px";
 	const isHeroInView = useInView(heroRef, { margin: observerMargin });
 
@@ -40,23 +40,24 @@ const CareersPage = () => {
 
 	return (
 		<div className="bg-[#5b3644] text-[#fffaeb] min-h-screen flex flex-col">
-			{/* Header - Using the scroll observer logic */}
 			<Header showHeader={isHeroInView} currentPath={pathname} />
 
 			<div className="flex-grow">
-				{/* Hero Section */}
 				<section ref={heroRef}>
 					<CareerHero />
 				</section>
 
-				{/* Job Openings Section */}
-				<JobListing onApply={() => setShowForm(true)} />
+				{/* UPDATED: Pass the job title into the state setter */}
+				<JobListing onApply={(title) => setSelectedJob(title)} />
 			</div>
 
-			{/* Application Modal Overlay */}
-			<ApplicationModal isOpen={showForm} onClose={() => setShowForm(false)} />
+			{/* UPDATED: Pass the jobTitle and use boolean logic for isOpen */}
+			<ApplicationModal
+				isOpen={!!selectedJob}
+				onClose={() => setSelectedJob(null)}
+				jobTitle={selectedJob || ""}
+			/>
 
-			{/* Footer */}
 			<Footer />
 		</div>
 	);

@@ -4,13 +4,14 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { jobs } from "@/lib/jobs";
 
-const JobListing = ({ onApply }: { onApply: () => void }) => {
+// Props now require a function that takes the job title string
+const JobListing = ({ onApply }: { onApply: (title: string) => void }) => {
 	const [expandedJob, setExpandedJob] = useState<string | null>(null);
 
 	return (
 		<section className="py-24 md:py-40 px-6 lg:px-20 bg-[#fffaeb]">
 			<div className="max-w-5xl mx-auto">
-				{/* Header Section: Adjusted for mobile stacking */}
+				{/* Header Section */}
 				<div className="mb-20 md:mb-32 flex flex-col md:flex-row md:items-start justify-between gap-10 md:gap-12 border-b border-[#5b3644]/10 pb-16">
 					<div className="space-y-6 flex-1">
 						<motion.div
@@ -30,14 +31,13 @@ const JobListing = ({ onApply }: { onApply: () => void }) => {
 						</h2>
 					</div>
 
-					{/* Flashy Openings Count: Optimized for small screens */}
+					{/* Openings Count Decorator */}
 					<motion.div
 						initial={{ opacity: 0, scale: 0.9 }}
 						whileInView={{ opacity: 1, scale: 1 }}
 						transition={{ duration: 1, ease: "easeOut" }}
 						className="relative flex flex-col items-start md:items-end justify-center self-end md:self-start">
 						<div className="relative">
-							{/* Decorative Background Number: Scaled down for mobile */}
 							<span className="text-[7rem] sm:text-[10rem] md:text-[14rem] font-bold leading-none text-[#5b3644]/[0.03] absolute -top-12 sm:-top-16 md:-top-24 -right-2 md:-right-8 select-none">
 								{jobs.length}
 							</span>
@@ -65,7 +65,7 @@ const JobListing = ({ onApply }: { onApply: () => void }) => {
 					</motion.div>
 				</div>
 
-				{/* Job List: Fluid spacing */}
+				{/* Job List */}
 				<div className="space-y-0">
 					{jobs.map((job, index) => (
 						<motion.div
@@ -80,7 +80,7 @@ const JobListing = ({ onApply }: { onApply: () => void }) => {
 									setExpandedJob(expandedJob === job.id ? null : job.id)
 								}
 								className="w-full py-8 md:py-12 flex flex-col md:flex-row md:items-center cursor-pointer group relative transition-colors duration-500 hover:bg-[#5b3644]/[0.01]">
-								{/* Index Number */}
+								{/* RESTORED: Index Number labeling */}
 								<span className="text-[10px] font-bold text-[#bfa15f] mb-2 md:mb-0 md:w-24 tracking-tighter">
 									0{index + 1}—
 								</span>
@@ -100,7 +100,7 @@ const JobListing = ({ onApply }: { onApply: () => void }) => {
 									</div>
 								</div>
 
-								{/* Minimalist Toggle: Hidden on very small screens for cleaner look */}
+								{/* Minimalist Toggle Icon */}
 								<div className="hidden sm:block overflow-hidden h-8 w-8 relative ml-4">
 									<motion.div
 										animate={{ y: expandedJob === job.id ? -32 : 0 }}
@@ -130,10 +130,11 @@ const JobListing = ({ onApply }: { onApply: () => void }) => {
 												{job.description}
 											</p>
 
+											{/* Submit Button - Now passes title to parent state */}
 											<button
 												onClick={(e) => {
 													e.stopPropagation();
-													onApply();
+													onApply(job.title);
 												}}
 												className="group/btn relative inline-flex items-center gap-6 md:gap-8 py-2 overflow-hidden">
 												<span className="text-[10px] uppercase tracking-[0.4em] font-bold text-[#5b3644]">
