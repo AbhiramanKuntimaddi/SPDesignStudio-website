@@ -5,9 +5,8 @@ import { usePathname } from "next/navigation";
 import { useInView } from "framer-motion";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
-import PortfolioHero from "@/components/Portfolio/PortfolioHero";
+import { PortfolioHero } from "@/components/Portfolio/PortfolioHero";
 
-// Helper for responsive observer logic
 function useMediaQuery(query: string) {
 	const [matches, setMatches] = useState(false);
 	useEffect(() => {
@@ -22,12 +21,14 @@ function useMediaQuery(query: string) {
 
 export default function PortfolioPage() {
 	const pathname = usePathname();
-	const heroRef = useRef(null);
+	const topZoneRef = useRef(null);
 	const isMobile = useMediaQuery("(max-width: 640px)");
 
-	// Logic to show/hide header based on PortfolioHero visibility
-	const observerMargin = isMobile ? "-60% 0px -20% 0px" : "-40% 0px -20% 0px";
-	const isHeroInView = useInView(heroRef, { margin: observerMargin });
+	const observerMargin = isMobile ? "-10% 0px 0px 0px" : "-20% 0px 0px 0px";
+	const isAtTop = useInView(topZoneRef, {
+		margin: observerMargin,
+		amount: 0.1,
+	});
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -35,15 +36,17 @@ export default function PortfolioPage() {
 
 	return (
 		<div className="bg-[#5b3644] text-[#fffaeb] selection:bg-[#bfa15f]/30">
-			{/* Header reacts to heroRef */}
-			<Header showHeader={isHeroInView} currentPath={pathname} />
+			<Header showHeader={isAtTop} currentPath={pathname} />
 
 			<main>
-				<section ref={heroRef}>
+				<div
+					ref={topZoneRef}
+					className="absolute top-0 left-0 w-full h-[40vh] pointer-events-none"
+				/>
+
+				<section>
 					<PortfolioHero />
 				</section>
-
-				{/* You can add a PortfolioGridSection here later */}
 			</main>
 
 			<Footer />
