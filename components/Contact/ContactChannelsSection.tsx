@@ -17,7 +17,9 @@ const ContactChannelsSection = () => {
 	const [activeChannel, setActiveChannel] = useState<Channel | null>(null);
 
 	return (
-		<section className="bg-[#fffaeb] py-24 md:py-40 px-6 lg:px-20 relative">
+		<section
+			id="inquiry-form"
+			className="bg-[#fffaeb] py-24 md:py-40 px-6 lg:px-20 relative">
 			<div className="max-w-screen-2xl mx-auto">
 				{/* Centered Section Title */}
 				<motion.div

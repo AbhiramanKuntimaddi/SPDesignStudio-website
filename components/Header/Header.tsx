@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import localFont from "next/font/local";
 
 const bdScript = localFont({
@@ -15,15 +16,11 @@ interface HeaderProps {
 	currentPath: string;
 }
 
-// Animation Variants
 const containerVariants = {
 	hidden: { opacity: 0 },
 	visible: {
 		opacity: 1,
-		transition: {
-			staggerChildren: 0.1,
-			delayChildren: 0.3,
-		},
+		transition: { staggerChildren: 0.1, delayChildren: 0.3 },
 	},
 };
 
@@ -32,19 +29,44 @@ const itemVariants = {
 	visible: {
 		opacity: 1,
 		x: 0,
-		transition: { duration: 0.5, ease: "easeOut" },
+		transition: { duration: 0.5, ease: [0.19, 1, 0.22, 1] },
 	},
 };
 
 const Header = ({ showHeader, currentPath }: HeaderProps) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const router = useRouter();
 
-	// Updated Navigation Items
+	// FIX: Prevent background scroll on iOS when menu is open
+	useEffect(() => {
+		if (isMenuOpen) {
+			document.body.style.overflow = "hidden";
+			document.body.style.touchAction = "none"; // iOS specific
+		} else {
+			document.body.style.overflow = "unset";
+			document.body.style.touchAction = "auto";
+		}
+		return () => {
+			document.body.style.overflow = "unset";
+			document.body.style.touchAction = "auto";
+		};
+	}, [isMenuOpen]);
+
 	const navItems = ["Home", "About", "Portfolio", "Contact", "Careers"];
 
 	const isActive = (item: string) => {
 		if (item === "Home") return currentPath === "/";
 		return currentPath.toLowerCase().includes(item.toLowerCase());
+	};
+
+	// FIX: Smooth navigation for iOS/Next.js to avoid page refresh flash
+	const handleNav = (item: string) => {
+		const path = item === "Home" ? "/" : `/${item.toLowerCase()}`;
+		setIsMenuOpen(false);
+		// Timeout allows the menu exit animation to start before the route changes
+		setTimeout(() => {
+			router.push(path);
+		}, 100);
 	};
 
 	return (
@@ -55,19 +77,19 @@ const Header = ({ showHeader, currentPath }: HeaderProps) => {
 						initial={{ y: -20, opacity: 0 }}
 						animate={{ y: 0, opacity: 1 }}
 						exit={{ y: -20, opacity: 0 }}
-						transition={{ duration: 0.8, ease: "easeOut" }}
-						className="fixed top-0 left-0 right-0 flex justify-between items-start px-10 pt-10 z-50 bg-transparent pointer-events-none">
+						transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+						className="fixed top-0 left-0 right-0 flex justify-between items-start px-6 md:px-10 pt-8 md:pt-10 z-[60] bg-transparent pointer-events-none">
 						<Link
 							href="/"
 							className="pointer-events-auto transition-opacity hover:opacity-70 active:scale-95">
 							<span
-								className={`${bdScript.className} text-4xl md:text-5xl text-[#fffaeb] antialiased tracking-wide`}>
+								className={`${bdScript.className} text-3xl md:text-5xl text-[#fffaeb] antialiased tracking-wide`}>
 								SP Design Studio
 							</span>
 						</Link>
 
 						<button
-							className={`pointer-events-auto text-[10px] uppercase tracking-[0.4em] transition-all duration-500 origin-center ${
+							className={`pointer-events-auto text-[10px] uppercase tracking-[0.4em] transition-all duration-500 origin-center py-2 px-4 ${
 								isMenuOpen
 									? "text-[#714d59] rotate-0"
 									: "text-[#fffaeb] rotate-90"
@@ -81,21 +103,28 @@ const Header = ({ showHeader, currentPath }: HeaderProps) => {
 
 			<AnimatePresence>
 				{isMenuOpen && (
-					<div
-						className="fixed inset-0 bg-black/50 z-40 flex items-start justify-end"
-						onClick={() => setIsMenuOpen(false)}>
+					<div className="fixed inset-0 z-[50] flex justify-end">
+						{/* Overlay */}
+						<motion.div
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+							onClick={() => setIsMenuOpen(false)}
+						/>
+
 						<motion.nav
-							className="bg-[#fffaeb] shadow-lg w-full md:w-1/3 h-full overflow-hidden"
+							className="relative bg-[#fffaeb] w-full md:w-[40%] lg:w-[30%] h-[100dvh] shadow-2xl overflow-hidden" // FIX: 100dvh for iOS
 							initial={{ x: "100%" }}
 							animate={{ x: 0 }}
 							exit={{ x: "100%" }}
-							transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
+							transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
 							onClick={(e) => e.stopPropagation()}>
 							<motion.div
 								variants={containerVariants}
 								initial="hidden"
 								animate="visible"
-								className="flex flex-col text-4xl md:text-5xl text-left font-light gap-8 text-[#5b3644] mt-[25vh] p-12">
+								className="flex flex-col text-4xl md:text-5xl text-left font-light gap-8 text-[#5b3644] mt-[20vh] p-8 md:p-12">
 								{navItems.map((item) => {
 									const active = isActive(item);
 									return (
@@ -103,12 +132,7 @@ const Header = ({ showHeader, currentPath }: HeaderProps) => {
 											key={item}
 											variants={itemVariants}
 											className="relative text-left w-fit transition-all duration-500 group"
-											onClick={() => {
-												// Using standard routing or Next Link behavior
-												window.location.href =
-													item === "Home" ? "/" : `/${item.toLowerCase()}`;
-												setIsMenuOpen(false);
-											}}>
+											onClick={() => handleNav(item)}>
 											<span
 												className={`relative z-10 transition-colors duration-500 ${
 													active
@@ -122,11 +146,6 @@ const Header = ({ showHeader, currentPath }: HeaderProps) => {
 												<motion.div
 													layoutId="navLine"
 													className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#bfa15f]"
-													transition={{
-														type: "spring",
-														stiffness: 300,
-														damping: 30,
-													}}
 												/>
 											)}
 

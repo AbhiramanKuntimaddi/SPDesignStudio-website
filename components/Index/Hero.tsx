@@ -103,7 +103,15 @@ const Hero = () => {
 				<span className="text-[10px] uppercase tracking-[0.4em] text-[#fffaeb]">
 					Scroll to Begin
 				</span>
-				<div className="w-12 h-[1px] bg-[#fffaeb]" />
+
+				{/* Arrow */}
+				<div className="relative flex items-center">
+					{/* Shaft */}
+					<div className="w-12 h-[1px] bg-[#fffaeb]" />
+
+					{/* Arrow Head */}
+					<span className="absolute right-0 w-2 h-2 border-t border-r border-[#fffaeb] rotate-45" />
+				</div>
 			</motion.div>
 		</section>
 	);
