@@ -100,7 +100,7 @@ const About = () => {
 				{/* Minimalist Architectural CTA */}
 				<footer className="flex justify-center border-t border-[#5b3644]/10 pt-16 w-full">
 					<motion.a
-						href="/about-us"
+						href="/about"
 						initial="initial"
 						whileHover="hover"
 						className="group relative flex items-center justify-center w-full py-8 gap-12 transition-all duration-700 ease-in-out">
