@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 const HeroBackgroundVideo = ({ src }: { src: string }) => {
   return (
@@ -16,9 +16,9 @@ const HeroBackgroundVideo = ({ src }: { src: string }) => {
       </video>
 
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-zinc-800 bg-opacity-80"></div>
+      <div className="absolute inset-0 bg-[#5b3644] bg-opacity-50"></div>
     </div>
-  );
-};
+  )
+}
 
-export default HeroBackgroundVideo;
+export default HeroBackgroundVideo

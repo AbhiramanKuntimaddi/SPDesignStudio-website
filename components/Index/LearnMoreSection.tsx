@@ -1,10 +1,10 @@
-"use client";
+'use client'
 
 interface LearnMoreSectionProps {
-  className?: string;
+  className?: string
 }
 
-const LearnMoreSection = ({ className = "" }: LearnMoreSectionProps) => {
+const LearnMoreSection = ({ className = '' }: LearnMoreSectionProps) => {
   return (
     // The "hidden sm:flex" class hides the element on extra-small screens and displays it as a flex container starting at the "sm" breakpoint.
     <div
@@ -21,16 +21,11 @@ const LearnMoreSection = ({ className = "" }: LearnMoreSectionProps) => {
           viewBox="0 0 24 24"
           stroke="currentColor"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 9l-7 7-7-7"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LearnMoreSection;
+export default LearnMoreSection
