@@ -1,30 +1,27 @@
 import { createClient } from "next-sanity";
-import imageUrlBuilder from "@sanity/image-url";
+// 1. Use the modern named export to clear the deprecation warning
+import { createImageUrlBuilder } from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url";
 
-// 1. Extract variables with fallbacks to prevent Build Crashes
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "";
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
-const apiVersion = "2026-01-12";
-
-// 2. Defensive check: If variables are missing during build, warn but don't crash
-if (!projectId) {
-	console.warn(
-		"Missing NEXT_PUBLIC_SANITY_PROJECT_ID. Check your Vercel/Env settings."
-	);
-}
+const apiVersion = "2026-01-13"; // Updated to today's date
 
 export const client = createClient({
 	projectId,
 	dataset,
 	apiVersion,
-	useCdn: false, // Recommended: false for server-side fetching in Next.js
+	useCdn: false, // This ensures we bypass the cache and see fresh data
 });
 
-// 3. Initialize the image builder
-const builder = imageUrlBuilder(client);
+// 2. Use the new builder function
+const builder = createImageUrlBuilder(client);
 
-// 4. Strictly typed helper for images
+/**
+ * Strictly typed helper.
+ * Because we use 'SanityImageSource', TS will catch errors if you
+ * pass bad data, ensuring zero usage of 'any'.
+ */
 export function urlFor(source: SanityImageSource) {
 	return builder.image(source);
 }
