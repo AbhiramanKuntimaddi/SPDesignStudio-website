@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
+import Link from "next/link"; // Import the Link component
 import localFont from "next/font/local";
 import BlurText from "../animations/BlurText";
 import HeroBackgroundVideo from "@/components/Index/HeroBackgroundVideo";
@@ -26,9 +27,8 @@ const Hero = () => {
 				<div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent" />
 			</div>
 
-			{/* Content Container */}
 			<div className="relative z-10 h-full flex flex-col items-center justify-end px-6 md:px-12 pb-20 md:pb-28">
-				{/* 1. Logo - Locked Position */}
+				{/* 1. Logo */}
 				<motion.div
 					initial={{ opacity: 0, filter: "blur(12px)" }}
 					animate={{ opacity: 0.9, filter: "blur(0px)" }}
@@ -44,7 +44,7 @@ const Hero = () => {
 					/>
 				</motion.div>
 
-				{/* 2. Headline - Locked Position */}
+				{/* 2. Headline */}
 				<div className="text-center">
 					<BlurText
 						className={`${bdScript.className} text-[clamp(3.5rem,12vw,9.5rem)] leading-[0.7] text-[#fffaeb] antialiased px-4`}
@@ -56,10 +56,7 @@ const Hero = () => {
 					/>
 				</div>
 
-				{/* 3. The "Static" Divider Container 
-            This div has a fixed height of 60px + margin (mb-8). 
-            Because it is fixed, the headline above it will NOT move when the line grows.
-        */}
+				{/* 3. The "Static" Divider */}
 				<div className="flex flex-col items-center mt-10 md:mt-14 h-[60px] mb-8">
 					<motion.div
 						initial={{ height: 0, opacity: 0 }}
@@ -69,7 +66,7 @@ const Hero = () => {
 					/>
 				</div>
 
-				{/* 4. Narrative - Fades in below the fixed line space */}
+				{/* 4. Narrative */}
 				<motion.div
 					initial={{ opacity: 0 }}
 					animate={{ opacity: isLoaded ? 1 : 0 }}
@@ -84,12 +81,13 @@ const Hero = () => {
 					</p>
 
 					<div className="mt-4">
-						<a
+						{/* CHANGED: Swapped <a> for <Link> */}
+						<Link
 							href="/portfolio"
 							className="group relative py-2 text-xs md:text-sm uppercase tracking-[0.3em] text-[#bfa15f] font-medium">
 							Explore the Portfolio
-							<span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#bfa15f] transition-all duration-700 ease-in-out group-hover:w-full" />
-						</a>
+							<span className="absolute bottom-0 left-1/2 w-0 h-[1px] bg-[#bfa15f] -translate-x-1/2 transition-all duration-700 ease-in-out group-hover:w-full" />
+						</Link>
 					</div>
 				</motion.div>
 			</div>
@@ -103,13 +101,8 @@ const Hero = () => {
 				<span className="text-[10px] uppercase tracking-[0.4em] text-[#fffaeb]">
 					Scroll to Begin
 				</span>
-
-				{/* Arrow */}
 				<div className="relative flex items-center">
-					{/* Shaft */}
 					<div className="w-12 h-[1px] bg-[#fffaeb]" />
-
-					{/* Arrow Head */}
 					<span className="absolute right-0 w-2 h-2 border-t border-r border-[#fffaeb] rotate-45" />
 				</div>
 			</motion.div>
