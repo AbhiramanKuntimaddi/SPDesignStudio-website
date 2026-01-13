@@ -3,10 +3,11 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { type Project } from "@/lib/projects";
+import { urlFor } from "@/lib/sanity.client";
+import { type SanityProject } from "@/lib/queries";
 
 interface ProjectCardProps {
-	project: Project;
+	project: SanityProject;
 	index: number;
 	activeSort: "year" | "area";
 }
@@ -16,7 +17,6 @@ export const ProjectCard = ({
 	index,
 	activeSort,
 }: ProjectCardProps) => {
-	// Tighter staggered offset for a cohesive grid
 	const isEven = index % 2 !== 0;
 
 	return (
@@ -30,7 +30,6 @@ export const ProjectCard = ({
 			<Link href={`/portfolio/${project.slug}`} className="group block">
 				{/* Image Container */}
 				<div className="relative overflow-hidden aspect-[3/4] mb-6">
-					{/* 1. THE TAG ON THE IMAGE (Visual Anchor) */}
 					<div className="absolute top-5 left-5 z-20 overflow-hidden">
 						<motion.div
 							initial={{ x: "-100%" }}
@@ -46,7 +45,7 @@ export const ProjectCard = ({
 						transition={{ duration: 1.2 }}
 						className="w-full h-full relative">
 						<Image
-							src={project.mainImage}
+							src={urlFor(project.mainImage).width(800).height(1067).url()}
 							alt={project.title}
 							fill
 							className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[1.2s]"
@@ -61,7 +60,6 @@ export const ProjectCard = ({
 							{project.title}
 						</h3>
 
-						{/* Area & Year Row */}
 						<div className="flex items-center gap-3 text-[10px] font-medium tracking-widest uppercase">
 							<span
 								className={
@@ -88,12 +86,25 @@ export const ProjectCard = ({
 					<div className="flex items-center justify-between text-[9px] uppercase tracking-[0.3em] font-medium">
 						<p className="text-[#fffaeb]/30">{project.location}</p>
 
-						{/* 2. THE TOPOLOGY TYPE (Text based indicator) */}
-						<div className="flex items-center gap-3">
-							<div className="w-1 h-1 rounded-full bg-[#bfa15f]/50" />
-							<span className="text-[#bfa15f] font-bold opacity-90">
-								Type — {project.category}
-							</span>
+						<div className="flex items-center gap-4">
+							{/* NEW: Project Status Indicator */}
+							{project.status && (
+								<div className="flex items-center gap-1.5 border border-[#bfa15f]/30 px-2 py-0.5 rounded-full">
+									<span
+										className={`w-1 h-1 rounded-full ${project.status === "completed" ? "bg-[#bfa15f]" : "bg-[#fffaeb]/40 animate-pulse"}`}
+									/>
+									<span className="text-[#fffaeb]/50 text-[7px] tracking-widest">
+										{project.status}
+									</span>
+								</div>
+							)}
+
+							<div className="flex items-center gap-3">
+								<div className="w-1 h-1 rounded-full bg-[#bfa15f]/50" />
+								<span className="text-[#bfa15f] font-bold opacity-90">
+									{project.category}
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
