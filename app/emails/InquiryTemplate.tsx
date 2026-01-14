@@ -9,7 +9,6 @@ import {
 	Section,
 	Text,
 } from "@react-email/components";
-import * as React from "react";
 
 interface EmailProps {
 	type: string;
@@ -83,7 +82,7 @@ export const InquiryTemplate = ({
 							This is an automated notification from the SP Design Studio
 							digital portal. All inquiries are archived for studio records.
 						</Text>
-						<Text style={footerURL}>spandanapuppala.com</Text>
+						<Text style={footerURL}>spandanapuppala.in</Text>
 					</Section>
 				</Container>
 			</Body>

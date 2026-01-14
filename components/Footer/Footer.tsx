@@ -16,11 +16,11 @@ const Footer = () => {
 					<div className="text-[10px] uppercase tracking-[0.3em] opacity-20 font-light">
 						Website brought to life by{" "}
 						<a
-							href="https://akport.vercel.app"
+							href="https://akport26.vercel.app"
 							target="_blank"
 							rel="noopener noreferrer"
 							className="underline underline-offset-4 hover:text-[#bfa15f] transition-colors">
-							AK
+							Abhiraman Kuntimaddi
 						</a>
 					</div>
 				</div>
