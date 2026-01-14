@@ -6,6 +6,7 @@ import Image from "next/image";
 import localFont from "next/font/local";
 import { services } from "@/lib/services";
 
+// Local Font Setup
 const bdScript = localFont({
 	src: "../../public/fonts/BDSans/BDScript-Regular.woff",
 	style: "italic",
@@ -26,6 +27,11 @@ const cardVariant: Variants = {
 };
 
 const Service = () => {
+	// Unified height: 213px on mobile to match the individual stacked cards
+	// Keeping your specified bg-[#4a2b37]
+	const standardCardClass =
+		"group relative overflow-hidden rounded-sm bg-[#4a2b37] h-[213px] lg:h-[450px]";
+
 	return (
 		<section className="min-h-screen bg-[#5b3644] py-24 px-6 lg:px-12 flex flex-col items-center">
 			<div className="w-full max-w-screen-2xl">
@@ -49,7 +55,7 @@ const Service = () => {
 				</header>
 
 				{/* Grid */}
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr mb-32">
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-32">
 					{/* I. Residential */}
 					<motion.div
 						variants={cardVariant}
@@ -57,54 +63,50 @@ const Service = () => {
 						whileInView="visible"
 						viewport={{ once: true }}
 						custom={0}
-						className="lg:col-span-2 group relative overflow-hidden rounded-sm bg-[#4a2b37] min-h-[450px]">
+						className={`lg:col-span-2 ${standardCardClass}`}>
 						<Image
 							src={services[0].backgroundImage}
-							alt={services[0].title}
+							alt="Residential"
 							fill
 							className="object-cover opacity-50 group-hover:scale-105 transition-transform duration-[3s]"
 						/>
 						<div className="absolute inset-0 bg-gradient-to-t from-[#3a1d28] via-transparent to-transparent" />
-
-						<div className="absolute inset-0 p-8 lg:p-12 flex flex-col justify-end">
-							<span className="text-[#bfa15f] text-[10px] tracking-[0.5em] uppercase font-bold mb-4 italic">
+						<div className="absolute inset-0 p-6 lg:p-12 flex flex-col justify-end">
+							<span className="text-[#bfa15f] text-[10px] tracking-[0.5em] uppercase font-bold mb-2 italic">
 								I. Residential
 							</span>
 
-							<div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-								<p className="text-[#fffaeb]/60 text-sm max-w-sm font-light leading-relaxed italic">
+							<div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+								<p className="text-[#fffaeb]/60 text-[10px] md:text-sm max-w-sm italic leading-relaxed line-clamp-2 md:line-clamp-none">
 									{services[0].description}
 								</p>
 
 								<div className="text-[#fffaeb] text-right">
-									<span className="text-6xl font-extralight italic leading-none block">
+									<span className="text-4xl md:text-6xl font-extralight italic leading-none block">
 										<CountUp end={services[0].projects} enableScrollSpy />
-									</span>
-									<span className="text-[10px] uppercase tracking-widest opacity-40">
-										Projects
 									</span>
 								</div>
 							</div>
 						</div>
 					</motion.div>
 
-					{/* II. Overall Sft Transformed */}
+					{/* II. Scale */}
 					<motion.div
 						variants={cardVariant}
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true }}
 						custom={1}
-						className="group relative overflow-hidden rounded-sm border border-[#bfa15f]/20 bg-[#fffaeb]/5 backdrop-blur-sm flex flex-col justify-between p-10 min-h-[350px]">
+						className="group relative overflow-hidden rounded-sm border border-[#bfa15f]/20 bg-[#fffaeb]/5 backdrop-blur-sm flex flex-col justify-between p-8 h-[213px] lg:h-[450px]">
 						<span className="text-[#bfa15f] text-[10px] tracking-[0.5em] uppercase font-bold text-center">
 							II. Scale
 						</span>
 
 						<div className="text-[#fffaeb] text-center">
-							<div className="text-7xl font-extralight italic mb-2 tracking-tighter leading-none">
+							<div className="text-5xl md:text-7xl font-extralight italic mb-1 leading-none">
 								<CountUp end={450} suffix="k" enableScrollSpy />
 							</div>
-							<p className="text-[#fffaeb]/40 text-[9px] uppercase tracking-[0.4em] leading-loose">
+							<p className="text-[#fffaeb]/40 text-[8px] md:text-[9px] uppercase tracking-[0.4em]">
 								Sq. Ft. Transformed
 							</p>
 						</div>
@@ -112,93 +114,113 @@ const Service = () => {
 						<div className="h-[1px] w-12 bg-[#bfa15f] mx-auto opacity-30" />
 					</motion.div>
 
-					{/* III. Commercial Spaces */}
-					<motion.div
-						variants={cardVariant}
-						initial="hidden"
-						whileInView="visible"
-						viewport={{ once: true }}
-						custom={2}
-						className="group relative overflow-hidden rounded-sm bg-[#4a2b37] min-h-[450px]">
-						<Image
-							src={services[1].backgroundImage}
-							alt={services[1].title}
-							fill
-							className="object-cover opacity-40 group-hover:scale-110 transition-transform duration-[3s]"
-						/>
-
-						<div className="absolute inset-0 p-10 flex flex-col justify-between border border-[#fffaeb]/5 m-4">
-							<span className="text-[#bfa15f] text-[10px] tracking-[0.5em] uppercase font-bold">
-								III. Commercial
-							</span>
-
-							<div className="text-[#fffaeb]">
-								<span className="text-5xl font-extralight italic block leading-none mb-2">
-									20,000
+					{/* III & IV. Stacked (Now visually identical to others on mobile) */}
+					<div className="flex flex-col gap-6 lg:h-[450px]">
+						{/* Commercial */}
+						<motion.div
+							variants={cardVariant}
+							custom={2}
+							initial="hidden"
+							whileInView="visible"
+							viewport={{ once: true }}
+							className="h-[213px] lg:flex-1 group relative overflow-hidden rounded-sm bg-[#4a2b37]">
+							<Image
+								src={services[1].backgroundImage}
+								alt="Commercial"
+								fill
+								className="object-cover opacity-40"
+							/>
+							<div className="absolute inset-0 p-6 flex flex-col justify-between border border-[#fffaeb]/5 m-2">
+								<span className="text-[#bfa15f] text-[10px] tracking-[0.5em] uppercase font-bold">
+									III. Commercial
 								</span>
-								<h3 className="text-xl font-light tracking-tight">
-									Commercial Spaces (Sq. Ft.)
-								</h3>
+								<div className="text-[#fffaeb]">
+									<span className="text-3xl font-extralight italic block">
+										20,000+
+									</span>
+									<h3 className="text-[10px] uppercase tracking-widest opacity-60">
+										Commercial Sft
+									</h3>
+								</div>
 							</div>
-						</div>
-					</motion.div>
+						</motion.div>
 
-					{/* IV. TurnKey Solutions */}
-					<motion.div
-						variants={cardVariant}
-						initial="hidden"
-						whileInView="visible"
-						viewport={{ once: true }}
-						custom={3}
-						className="group relative overflow-hidden rounded-sm bg-[#4a2b37] min-h-[350px]">
-						<Image
-							src={services[2].backgroundImage}
-							alt={services[2].title}
-							fill
-							className="object-cover opacity-40 grayscale group-hover:grayscale-0 transition-all duration-1000"
-						/>
-
-						<div className="absolute inset-0 p-10 flex flex-col justify-between bg-black/10">
-							<span className="text-[#bfa15f] text-[10px] tracking-[0.5em] uppercase font-bold">
-								IV. TurnKey
-							</span>
-
-							<div className="text-[#fffaeb]">
-								<span className="text-5xl font-extralight italic block mb-2">
-									<CountUp end={services[2].projects} enableScrollSpy />
+						{/* Interior Styling */}
+						<motion.div
+							variants={cardVariant}
+							custom={3}
+							initial="hidden"
+							whileInView="visible"
+							viewport={{ once: true }}
+							className="h-[213px] lg:flex-1 group relative overflow-hidden rounded-sm bg-[#3a1d28] border border-[#fffaeb]/5">
+							<div className="absolute inset-0 p-6 flex flex-col justify-between">
+								<span className="text-[#bfa15f] text-[10px] tracking-[0.5em] uppercase font-bold">
+									IV. Interior
 								</span>
-								<h3 className="text-lg font-light tracking-wide">
-									TurnKey Solutions
-								</h3>
+								<div className="text-[#fffaeb]">
+									<span className="text-3xl font-extralight italic block">
+										Styling
+									</span>
+									<h3 className="text-[10px] uppercase tracking-widest opacity-60">
+										Curated Spaces
+									</h3>
+								</div>
 							</div>
-						</div>
-					</motion.div>
+						</motion.div>
+					</div>
 
-					{/* V. Design Consultation */}
+					{/* V. TurnKey */}
 					<motion.div
 						variants={cardVariant}
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true }}
 						custom={4}
-						className="group relative overflow-hidden rounded-sm bg-[#4a2b37] min-h-[350px]">
+						className={standardCardClass}>
+						<Image
+							src={services[2].backgroundImage}
+							alt="TurnKey"
+							fill
+							className="object-cover opacity-40 grayscale group-hover:grayscale-0 transition-all duration-1000"
+						/>
+						<div className="absolute inset-0 p-6 lg:p-10 flex flex-col justify-between bg-black/10">
+							<span className="text-[#bfa15f] text-[10px] tracking-[0.5em] uppercase font-bold">
+								V. Execution
+							</span>
+							<div className="text-[#fffaeb]">
+								<span className="text-4xl md:text-5xl font-extralight italic block mb-1">
+									<CountUp end={services[2].projects} enableScrollSpy />
+								</span>
+								<h3 className="text-xs md:text-lg font-light tracking-wide">
+									TurnKey Solutions
+								</h3>
+							</div>
+						</div>
+					</motion.div>
+
+					{/* VI. Design Consultation */}
+					<motion.div
+						variants={cardVariant}
+						initial="hidden"
+						whileInView="visible"
+						viewport={{ once: true }}
+						custom={5}
+						className={standardCardClass}>
 						<Image
 							src={services[3].backgroundImage}
-							alt={services[3].title}
+							alt="Consultation"
 							fill
 							className="object-cover opacity-50"
 						/>
-
-						<div className="absolute inset-0 p-10 flex flex-col justify-between bg-[#3a1d28]/60">
+						<div className="absolute inset-0 p-6 lg:p-10 flex flex-col justify-between bg-[#3a1d28]/60">
 							<span className="text-[#bfa15f] text-[10px] tracking-[0.5em] uppercase font-bold">
-								V. Consultation
+								VI. Strategy
 							</span>
-
 							<div className="text-[#fffaeb]">
-								<span className="text-5xl font-extralight italic block mb-2">
+								<span className="text-4xl md:text-5xl font-extralight italic block mb-1">
 									<CountUp end={services[3].projects} enableScrollSpy />+
 								</span>
-								<h3 className="text-lg font-light tracking-wide">
+								<h3 className="text-xs md:text-lg font-light tracking-wide">
 									Design Consultation
 								</h3>
 							</div>
