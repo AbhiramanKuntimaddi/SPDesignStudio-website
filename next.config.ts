@@ -30,8 +30,16 @@ const nextConfig = {
 	async rewrites() {
 		return [
 			{
-				source: "/studio-cms/:path*",
-				destination: `${process.env.NEXT_PUBLIC_STRAPI_TUNNEL_URL}/:path*`,
+				source: "/admin/:path*",
+				destination: `${process.env.NEXT_PUBLIC_STRAPI_TUNNEL_URL}/admin/:path*`,
+			},
+			{
+				source: "/api/:path*",
+				destination: `${process.env.NEXT_PUBLIC_STRAPI_TUNNEL_URL}/api/:path*`,
+			},
+			{
+				source: "/upload/:path*",
+				destination: `${process.env.NEXT_PUBLIC_STRAPI_TUNNEL_URL}/upload/:path*`,
 			},
 		];
 	},
