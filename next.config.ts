@@ -31,7 +31,7 @@ const nextConfig = {
 		return [
 			{
 				source: "/studio-cms/:path*",
-				destination: `${process.env.NEXT_PUBLIC_STRAPI_TUNNEL_URL}/studio-cms/:path*`,
+				destination: `${process.env.NEXT_PUBLIC_STRAPI_TUNNEL_URL}/:path*`,
 			},
 		];
 	},
