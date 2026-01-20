@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 
 const tunnelUrl = process.env.NEXT_PUBLIC_STRAPI_TUNNEL_URL || "";
-const tunnelHost = tunnelUrl.replace("https://", "");
+const tunnelHost = tunnelUrl.replace(/^https?:\/\//, "");
+
 const nextConfig = {
 	images: {
 		remotePatterns: [
@@ -27,23 +28,22 @@ const nextConfig = {
 			},
 		],
 	},
+
 	async rewrites() {
 		return [
 			{
 				source: "/admin/:path*",
-				destination: `${process.env.NEXT_PUBLIC_STRAPI_TUNNEL_URL}/admin/:path*`,
+				destination: `${tunnelUrl}/admin/:path*`,
 			},
+
 			{
 				source: "/api/:path*",
-				destination: `${process.env.NEXT_PUBLIC_STRAPI_TUNNEL_URL}/api/:path*`,
+				destination: `${tunnelUrl}/api/:path*`,
 			},
+
 			{
-				source: "/upload/:path*",
-				destination: `${process.env.NEXT_PUBLIC_STRAPI_TUNNEL_URL}/upload/:path*`,
-			},
-			{
-				source: "/studio-cms/:path*",
-				destination: `${process.env.NEXT_PUBLIC_STRAPI_TUNNEL_URL}/studio-cms/:path*`,
+				source: "/uploads/:path*",
+				destination: `${tunnelUrl}/uploads/:path*`,
 			},
 		];
 	},
