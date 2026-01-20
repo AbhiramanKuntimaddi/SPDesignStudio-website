@@ -41,6 +41,10 @@ const nextConfig = {
 				source: "/upload/:path*",
 				destination: `${process.env.NEXT_PUBLIC_STRAPI_TUNNEL_URL}/upload/:path*`,
 			},
+			{
+				source: "/studio-cms/:path*",
+				destination: `${process.env.NEXT_PUBLIC_STRAPI_TUNNEL_URL}/studio-cms/:path*`,
+			},
 		];
 	},
 };
