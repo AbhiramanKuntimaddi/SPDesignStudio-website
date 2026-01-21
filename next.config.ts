@@ -21,26 +21,30 @@ const nextConfig = {
 				hostname: "placehold.co",
 				pathname: "/**",
 			},
-			{
-				protocol: "https",
-				hostname: tunnelHost,
-				pathname: "/uploads/**",
-			},
+			...(tunnelHost
+				? [
+						{
+							protocol: "https",
+							hostname: tunnelHost,
+							pathname: "/uploads/**",
+						},
+					]
+				: []),
 		],
 	},
 
 	async rewrites() {
+		if (!tunnelUrl) return [];
+
 		return [
 			{
 				source: "/admin/:path*",
 				destination: `${tunnelUrl}/admin/:path*`,
 			},
-
 			{
 				source: "/api/:path*",
 				destination: `${tunnelUrl}/api/:path*`,
 			},
-
 			{
 				source: "/uploads/:path*",
 				destination: `${tunnelUrl}/uploads/:path*`,

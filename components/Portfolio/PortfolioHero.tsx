@@ -5,7 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import localFont from "next/font/local";
 import { FilterBar } from "./FilterBar";
 import { ProjectCard } from "./ProjectCard";
-import { SanityProject } from "@/lib/queries";
+import { type StrapiProject } from "@/lib/projects";
 
 const bdScript = localFont({
 	src: "../../public/fonts/BDSans/BDScript-Regular.woff",
@@ -13,19 +13,18 @@ const bdScript = localFont({
 });
 
 interface PortfolioHeroProps {
-	initialProjects: SanityProject[];
+	initialProjects: StrapiProject[];
 }
 
 export const PortfolioHero = ({ initialProjects }: PortfolioHeroProps) => {
 	const [activeCategory, setActiveCategory] = useState("All Typologies");
 	const [activeYear, setActiveYear] = useState("All Years");
-	// NEW: Status Filter State
 	const [activeStatus, setActiveStatus] = useState("All Stages");
 
 	const [sortField, setSortField] = useState<"year" | "area">("year");
 	const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
-	// 1. Derive Categories
+	// 1. Derive Categories - Strapi 5 specific
 	const categories = useMemo(
 		() => [
 			"All Typologies",
@@ -44,7 +43,7 @@ export const PortfolioHero = ({ initialProjects }: PortfolioHeroProps) => {
 		[initialProjects]
 	);
 
-	// 3. NEW: Derive Statuses from CMS data
+	// 3. Derive Statuses
 	const statuses = useMemo(
 		() => [
 			"All Stages",
@@ -53,7 +52,7 @@ export const PortfolioHero = ({ initialProjects }: PortfolioHeroProps) => {
 		[initialProjects]
 	);
 
-	// 4. Enhanced Filter and Sort logic
+	// 4. Filter and Sort logic
 	const filteredAndSorted = useMemo(() => {
 		return initialProjects
 			.filter(
@@ -61,7 +60,6 @@ export const PortfolioHero = ({ initialProjects }: PortfolioHeroProps) => {
 					(activeCategory === "All Typologies" ||
 						p.category === activeCategory) &&
 					(activeYear === "All Years" || p.year === activeYear) &&
-					// Added Status check
 					(activeStatus === "All Stages" || p.status === activeStatus)
 			)
 			.sort((a, b) => {
@@ -117,7 +115,6 @@ export const PortfolioHero = ({ initialProjects }: PortfolioHeroProps) => {
 					<FilterBar
 						categories={categories}
 						years={years}
-						// NEW: Pass status props to FilterBar
 						statuses={statuses}
 						activeStatus={activeStatus}
 						onStatusChangeAction={setActiveStatus}
@@ -138,7 +135,8 @@ export const PortfolioHero = ({ initialProjects }: PortfolioHeroProps) => {
 					<AnimatePresence mode="popLayout">
 						{filteredAndSorted.map((project, index) => (
 							<ProjectCard
-								key={project._id}
+								// FIX: Changed from project._id to project.documentId
+								key={project.documentId}
 								project={project}
 								index={index}
 								activeSort={sortField}

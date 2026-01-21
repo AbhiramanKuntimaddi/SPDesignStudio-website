@@ -3,14 +3,23 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { urlFor } from "@/lib/sanity.client";
-import { type SanityProject } from "@/lib/queries";
+import { type StrapiProject } from "@/lib/projects";
 
 interface ProjectCardProps {
-	project: SanityProject;
+	project: StrapiProject;
 	index: number;
 	activeSort: "year" | "area";
 }
+
+/**
+ * Helper to construct the full Strapi URL for images
+ * This uses the tunnel URL provided in your environment
+ */
+const getStrapiURL = (path: string | undefined) => {
+	if (!path) return "";
+	const baseUrl = process.env.NEXT_PUBLIC_STRAPI_TUNNEL_URL;
+	return path.startsWith("/") ? `${baseUrl}${path}` : path;
+};
 
 export const ProjectCard = ({
 	project,
@@ -43,11 +52,12 @@ export const ProjectCard = ({
 					<motion.div
 						whileHover={{ scale: 1.02 }}
 						transition={{ duration: 1.2 }}
-						className="w-full h-full relative">
+						className="w-full h-full relative bg-[#5b3644]/10">
 						<Image
-							src={urlFor(project.mainImage).width(800).height(1067).url()}
+							src={getStrapiURL(project.mainImage?.url)}
 							alt={project.title}
 							fill
+							sizes="(max-width: 768px) 100vw, 50vw"
 							className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[1.2s]"
 						/>
 						<div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent opacity-40" />
@@ -56,7 +66,7 @@ export const ProjectCard = ({
 
 				<div className="space-y-4">
 					<div className="flex justify-between items-baseline">
-						<h3 className="text-3xl lg:text-4xl font-light italic leading-none">
+						<h3 className="text-3xl lg:text-4xl font-light italic leading-none text-[#fffaeb]">
 							{project.title}
 						</h3>
 
@@ -87,11 +97,15 @@ export const ProjectCard = ({
 						<p className="text-[#fffaeb]/30">{project.location}</p>
 
 						<div className="flex items-center gap-4">
-							{/* NEW: Project Status Indicator */}
+							{/* Project Status Indicator */}
 							{project.status && (
 								<div className="flex items-center gap-1.5 border border-[#bfa15f]/30 px-2 py-0.5 rounded-full">
 									<span
-										className={`w-1 h-1 rounded-full ${project.status === "completed" ? "bg-[#bfa15f]" : "bg-[#fffaeb]/40 animate-pulse"}`}
+										className={`w-1 h-1 rounded-full ${
+											project.status === "completed"
+												? "bg-[#bfa15f]"
+												: "bg-[#fffaeb]/40 animate-pulse"
+										}`}
 									/>
 									<span className="text-[#fffaeb]/50 text-[7px] tracking-widest">
 										{project.status}

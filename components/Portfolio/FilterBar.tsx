@@ -36,7 +36,7 @@ export const FilterBar = ({
 }: FilterBarProps) => {
 	return (
 		<div className="flex flex-col lg:flex-row justify-between items-start lg:items-center py-12 border-t border-[#fffaeb]/10 gap-12">
-			{/* 1 & 2. PRIMARY DROPDOWNS */}
+			{/* PRIMARY DROPDOWNS */}
 			<div className="flex flex-col sm:flex-row gap-12 md:gap-20">
 				<Dropdown
 					label="Filter Typology"
@@ -58,7 +58,7 @@ export const FilterBar = ({
 				/>
 			</div>
 
-			{/* 3. ARCHIVE ORDERING */}
+			{/* ARCHIVE ORDERING */}
 			<div className="flex flex-col items-start lg:items-end gap-5">
 				<span className="text-[9px] uppercase tracking-[0.4em] text-[#bfa15f] font-bold opacity-70">
 					Archive Order
@@ -119,6 +119,7 @@ const Dropdown = ({
 	const [isOpen, setIsOpen] = useState(false);
 	const ref = useRef<HTMLDivElement>(null);
 
+	// Close on click outside
 	useEffect(() => {
 		const handleClickOutside = (e: MouseEvent) => {
 			if (ref.current && !ref.current.contains(e.target as Node)) {
@@ -158,9 +159,11 @@ const Dropdown = ({
 						transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
 						className="absolute top-full left-0 mt-6 min-w-[280px] z-[100] py-6 bg-[#5b3644]/95 backdrop-blur-2xl border border-[#fffaeb]/10 shadow-2xl">
 						<div className="max-h-[40vh] overflow-y-auto custom-scrollbar">
-							{options.map((opt) => (
+							{options.map((opt, index) => (
 								<button
-									key={opt}
+									// FIX: Composite key using label, option name, and index
+									// ensures uniqueness even if the data contains duplicates.
+									key={`${label.replace(/\s+/g, "-")}-${opt}-${index}`}
 									onClick={() => {
 										onSelect(opt);
 										setIsOpen(false);
