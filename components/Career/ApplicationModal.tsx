@@ -29,25 +29,55 @@ const ApplicationModal: FC<ModalProps> = ({ isOpen, onClose, jobTitle }) => {
 		e.preventDefault();
 		setIsLoading(true);
 
-		const formData = new FormData(e.currentTarget);
-		formData.append("role", jobTitle);
+		const form = e.currentTarget;
+		const formData = new FormData(form);
 
-		if (resumeFile) formData.set("resume", resumeFile);
-		if (portfolioFile) formData.set("portfolioFile", portfolioFile);
+		/**
+		 * STRAPI FILE UPLOAD LOGIC
+		 * Strapi expects a "data" field with JSON and files prefixed with "files."
+		 */
+		const data = {
+			name: formData.get("name"),
+			email: formData.get("email"),
+			portfolioLink: formData.get("link"),
+			appliedRole: jobTitle, // Passed from our Strapi Job listing
+		};
+
+		const strapiPayload = new FormData();
+		strapiPayload.append("data", JSON.stringify(data));
+
+		if (resumeFile) {
+			// "resume" matches the field name in your Strapi 'Application' collection
+			strapiPayload.append("files.resume", resumeFile);
+		}
+		if (portfolioFile) {
+			// "portfolioFile" matches the field name in your Strapi 'Application' collection
+			strapiPayload.append("files.portfolio", portfolioFile);
+		}
 
 		try {
-			const response = await fetch("/api/apply", {
-				method: "POST",
-				body: formData,
-			});
+			// We call your tunnel URL directly or through the /api proxy
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_STRAPI_TUNNEL_URL}/api/applications`,
+				{
+					method: "POST",
+					body: strapiPayload,
+					// Note: Do NOT set Content-Type header; browser handles it for FormData
+				}
+			);
 
 			if (response.ok) {
 				setIsSubmitted(true);
 			} else {
-				alert("Submission failed. Please check file sizes and try again.");
+				const errorLog = await response.json();
+				console.error("Strapi Error:", errorLog);
+				alert(
+					"Submission failed. Ensure the 'Applications' collection in Strapi has 'Create' permissions for Public."
+				);
 			}
-		} catch {
-			alert("Error connecting to server.");
+		} catch (error) {
+			console.error("Connection Error:", error);
+			alert("Error connecting to the server.");
 		} finally {
 			setIsLoading(false);
 		}
@@ -157,15 +187,7 @@ const ApplicationModal: FC<ModalProps> = ({ isOpen, onClose, jobTitle }) => {
 	);
 };
 
-/* --- STRICTLY TYPED SUB-COMPONENTS --- */
-
-interface FileUploadZoneProps {
-	label: string;
-	file: File | null;
-	setFile: (file: File | null) => void;
-	inputRef: RefObject<HTMLInputElement | null>;
-	required?: boolean;
-}
+/* --- SUB-COMPONENTS (Keep same as your original) --- */
 
 const FileUploadZone: FC<FileUploadZoneProps> = ({
 	label,
@@ -199,7 +221,7 @@ const FileUploadZone: FC<FileUploadZoneProps> = ({
 					</p>
 					<button
 						type="button"
-						onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+						onClick={(e) => {
 							e.stopPropagation();
 							setFile(null);
 						}}
@@ -222,14 +244,6 @@ const FileUploadZone: FC<FileUploadZoneProps> = ({
 	</div>
 );
 
-interface FormInputProps {
-	label: string;
-	placeholder: string;
-	name: string;
-	required?: boolean;
-	type?: string;
-}
-
 const FormInput: FC<FormInputProps> = ({
 	label,
 	placeholder,
@@ -250,12 +264,6 @@ const FormInput: FC<FormInputProps> = ({
 		/>
 	</div>
 );
-
-interface SuccessViewProps {
-	jobTitle: string;
-	bdScriptClass: string;
-	onDone: () => void;
-}
 
 const SuccessView: FC<SuccessViewProps> = ({
 	jobTitle,
@@ -281,5 +289,26 @@ const SuccessView: FC<SuccessViewProps> = ({
 		</button>
 	</motion.div>
 );
+
+// Types
+interface FileUploadZoneProps {
+	label: string;
+	file: File | null;
+	setFile: (file: File | null) => void;
+	inputRef: RefObject<HTMLInputElement | null>;
+	required?: boolean;
+}
+interface FormInputProps {
+	label: string;
+	placeholder: string;
+	name: string;
+	required?: boolean;
+	type?: string;
+}
+interface SuccessViewProps {
+	jobTitle: string;
+	bdScriptClass: string;
+	onDone: () => void;
+}
 
 export default ApplicationModal;

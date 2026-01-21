@@ -1,9 +1,10 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import localFont from "next/font/local";
-import { team, TeamMember } from "@/lib/team";
+import { getTeam, type TeamMember } from "@/lib/teams";
 
 const bdScript = localFont({
 	src: "../../public/fonts/BDSans/BDScript-Regular.woff",
@@ -11,6 +12,20 @@ const bdScript = localFont({
 });
 
 const CollectiveSection = () => {
+	const [members, setMembers] = useState<TeamMember[]>([]);
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		const loadTeam = async () => {
+			const data = await getTeam();
+			setMembers(data);
+			setIsLoading(false);
+		};
+		loadTeam();
+	}, []);
+
+	if (isLoading) return null;
+
 	return (
 		<section
 			id="collective"
@@ -22,36 +37,31 @@ const CollectiveSection = () => {
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8 }}
 					viewport={{ once: true }}>
-					{/* Section Label in BDScript */}
 					<span
 						className={`${bdScript.className} text-7xl md:text-8xl text-[#bfa15f] leading-none mb-8 sm:mb-6`}>
 						The Team
 					</span>
 
-					{/* Title in Serif */}
 					<h2 className="text-4xl md:text-6xl leading-[1.1] mt-[10px] md:mt-[-5px] text-[#fffaeb]">
 						Our Collective
 					</h2>
 
-					{/* Minimalist Single-Line Philosophy */}
 					<p className="text-xl md:text-3xl font-light text-[#fffaeb]/80 max-w-7xl mt-10 text-balance">
-						A collective of diverse minds synchronizing artistry
-						and technical precision to craft soulful environments.
+						A collective of diverse minds synchronizing artistry and technical
+						precision to craft soulful environments.
 					</p>
 
-					{/* Team Grid */}
 					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-20 mt-20">
-						{team.map((member: TeamMember, i: number) => (
+						{members.map((member, i) => (
 							<motion.div
-								key={i}
-								className="group"
+								key={member.documentId}
 								initial={{ opacity: 0, y: 20 }}
 								whileInView={{ opacity: 1, y: 0 }}
 								transition={{ delay: i * 0.1, duration: 0.8 }}
 								viewport={{ once: true }}>
-								<div className="relative aspect-[4/5] overflow-hidden mb-8 shadow-xl">
+								<div className="relative aspect-[4/5] overflow-hidden mb-8 shadow-xl bg-[#4a2b37]">
 									<Image
-										src={member.avatarUrl || "/placeholder.jpg"}
+										src={member.avatar}
 										alt={member.name}
 										fill
 										className="object-cover"
